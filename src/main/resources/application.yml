@@ -36,12 +36,5 @@ dataset:
     user-secret-key: itheima
     user-ttl: 72000000
     user-token-name: authentication
-  wechat:
-    appid: wx7a3595bf0591a098
-    secret: 7fe6ca5008c76a72be89f4d23c271e17
-  alioss:
-    endpoint: oss-cn-shenzhen.aliyuncs.com
-    access-key-id: LTAI5t62r16mCDUGb6L6z6UE
-    access-key-secret: r2yfN05jptW4eH7rxGNVnZGxHAmccz
-    bucket-name: maybetestbucket
+
 
