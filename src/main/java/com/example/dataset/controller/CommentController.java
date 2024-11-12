@@ -2,6 +2,7 @@ package com.example.dataset.controller;
 
 import com.example.dataset.DTO.CommentGetDTO;
 import com.example.dataset.DTO.CommentPostDTO;
+import com.example.dataset.DTO.MyCommentGetDTO;
 import com.example.dataset.service.CommentService;
 import com.example.dataset.utils.PageResult;
 import com.example.dataset.utils.ResultUtils;
@@ -30,4 +31,9 @@ public class CommentController {
         return ResultUtils.success(commentService.getCommentPageById(commentGetDTO));
     }
     // TODO 获取我的评论
+    @GetMapping("/getMyComment")
+    @ApiOperation("获取我的评论")
+    public ResultUtils<PageResult> getMyComment(@RequestBody MyCommentGetDTO mycommentGetDTO) {
+        return ResultUtils.success(commentService.getMyCommentById(mycommentGetDTO));
+    }
 }

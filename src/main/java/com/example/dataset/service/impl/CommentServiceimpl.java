@@ -2,6 +2,7 @@ package com.example.dataset.service.impl;
 
 import com.example.dataset.DTO.CommentGetDTO;
 import com.example.dataset.DTO.CommentPostDTO;
+import com.example.dataset.DTO.MyCommentGetDTO;
 import com.example.dataset.VO.CommentInfoVO;
 import com.example.dataset.mapper.CommentMapper;
 import com.example.dataset.service.CommentService;
@@ -27,6 +28,13 @@ public class CommentServiceimpl implements CommentService {
     public PageResult getCommentPageById(CommentGetDTO commentGetDTO) {
         PageHelper.startPage(commentGetDTO.getPageNumber(), commentGetDTO.getPageSize());
         Page<CommentInfoVO> page = commentMapper.getCommentPageById(commentGetDTO.getArticle_id());
+        return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    public PageResult getMyCommentById(MyCommentGetDTO mycommentGetDTO) {
+        PageHelper.startPage(mycommentGetDTO.getPageNum(), mycommentGetDTO.getPageSize());
+        Page<MyCommentGetDTO> page = commentMapper.getMyCommentById(mycommentGetDTO.getId());
         return new PageResult(page.getTotal(), page.getResult());
     }
 }
