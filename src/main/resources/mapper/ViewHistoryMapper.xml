@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dataset.mapper.ViewHistoryMapper">
+
+    <select id="getViewHistoryPageById" resultType="com.example.dataset.VO.ViewHistoryVO">
+        select m.title, v.view_time as time, u.nickname,
+               (COALESCE(c.comment_count,0) * 3 + COALESCE(d.download_count,0) * 5 + COALESCE(view.view_count,0) * 1 + COALESCE(s.star_count,0) * 8) as score
+        from view_history v
+        join materials m on m.material_id = v.material_id
+        join users u on u.user_id = m.user_id
+        left join (select material_id, count(*) as comment_count from comments group by material_id) c on v.material_id = c.material_id
+        left join (select material_id, count(*) as download_count from downloads group by material_id) d on v.material_id = d.material_id
+        left join (select material_id, count(*) as view_count from view_history group by material_id) view on view.material_id = v.material_id
+        left join (select material_id, count(*) as star_count from stars group by material_id) s on v.material_id = s.material_id
+        where v.user_id=#{userId}
+    </select>
+
+</mapper>

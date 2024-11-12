@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dataset.mapper.UserMapper">
+
+    <insert id="insert"  useGeneratedKeys="true" keyProperty="user_id">
+        insert into users (openid, nickname, school, major, password, sex, status, mobile, email, score, gen_time, last_login_time, avatar, intro)
+        values (#{openid}, #{nickname}, #{school}, #{major}, #{password}, #{sex},#{status}, #{mobile}, #{email}, #{score}, #{genTime}, #{lastLoginTime}, #{avatar}, #{intro})
+    </insert>
+
+    <update id="update">
+        update users
+        <set>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="school != null">school = #{school},</if>
+            <if test="major != null">major = #{major},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="mobile != null">mobile = #{mobile},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="intro != null">intro = #{intro},</if>
+        </set>
+        where user_id = #{userId}
+    </update>
+</mapper>

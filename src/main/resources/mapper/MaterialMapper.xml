@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dataset.mapper.MaterialMapper">
+
+    <insert id="upload"  useGeneratedKeys="true" keyProperty="materialId">
+        insert into materials (state, user_id, content_path, file_type, description, publish_time, title, official, size)
+        values (#{state}, #{userId}, #{contentPath}, #{fileType}, #{description}, #{publishTime}, #{title}, #{official}, #{size})
+    </insert>
+
+    <select id="pageSearchByKeyword" resultType="com.example.dataset.VO.MaterialListVO">
+        select m.material_id as id, m.title, m.description, u.nickname as author, m.publish_time as uploadTime,
+        (COALESCE(c.comment_count,0) * 3 + COALESCE(d.download_count,0) * 5 + COALESCE(v.view_count,0) * 1 + COALESCE(s.star_count,0) * 8) as heat
+        from materials m
+        left join users u on m.user_id = u.user_id
+        left join (select material_id, count(*) as comment_count from comments group by material_id) c on m.material_id = c.material_id
+        left join (select material_id, count(*) as download_count from downloads group by material_id) d on m.material_id = d.material_id
+        left join (select material_id, count(*) as view_count from view_history group by material_id) v on m.material_id = v.material_id
+        left join (select material_id, count(*) as star_count from stars group by material_id) s on m.material_id = s.material_id
+        <where>
+            <if test="keyword != null">
+                (m.title like concat('%',#{keyword},'%') or m.description like concat('%',#{keyword},'%'))
+            </if>
+        </where>
+        order by
+            <choose>
+                <when test='sort == "time"'>
+                    m.publish_time
+                </when>
+                <when test='sort == "heat"'>
+                    heat
+                </when>
+            </choose>
+        desc
+    </select>
+
+    <select id="pageSearchByOfficial" resultType="com.example.dataset.VO.MaterialListVO">
+        select m.material_id as id, m.title, m.description, u.nickname as author, m.publish_time as uploadTime,
+        (COALESCE(c.comment_count,0) * 3 + COALESCE(d.download_count,0) * 5 + COALESCE(v.view_count,0) * 1 + COALESCE(s.star_count,0) * 8) as heat
+        from materials m
+        left join users u on m.user_id = u.user_id
+        left join (select material_id, count(*) as comment_count from comments group by material_id) c on m.material_id = c.material_id
+        left join (select material_id, count(*) as download_count from downloads group by material_id) d on m.material_id = d.material_id
+        left join (select material_id, count(*) as view_count from view_history group by material_id) v on m.material_id = v.material_id
+        left join (select material_id, count(*) as star_count from stars group by material_id) s on m.material_id = s.material_id
+        <where>
+            <if test='navName == "official"'>
+                m.official = 1
+            </if>
+        </where>
+        order by
+            <choose>
+                <when test='sort == "time"'>
+                    m.publish_time
+                </when>
+                <when test='sort == "heat"'>
+                    heat
+                </when>
+            </choose>
+        desc
+    </select>
+
+    <select id="pageSearchById" resultType="com.example.dataset.VO.MaterialListVO">
+        select m.material_id as id, m.title, m.description, u.nickname as author, m.publish_time as uploadTime,
+        (COALESCE(c.comment_count,0) * 3 + COALESCE(d.download_count,0) * 5 + COALESCE(v.view_count,0) * 1 + COALESCE(s.star_count,0) * 8) as heat
+        from materials m
+        left join users u on m.user_id = u.user_id
+        left join (select material_id, count(*) as comment_count from comments group by material_id) c on m.material_id = c.material_id
+        left join (select material_id, count(*) as download_count from downloads group by material_id) d on m.material_id = d.material_id
+        left join (select material_id, count(*) as view_count from view_history group by material_id) v on m.material_id = v.material_id
+        left join (select material_id, count(*) as star_count from stars group by material_id) s on m.material_id = s.material_id
+        where m.user_id = #{userId}
+        order by
+        <choose>
+            <when test='sort == "time"'>
+                m.publish_time
+            </when>
+            <when test='sort == "heat"'>
+                heat
+            </when>
+        </choose>
+        desc
+    </select>
+
+    <select id="getMaterialInfoById" resultType="com.example.dataset.DTO.MaterialInfoDTO">
+        select m.material_id as materialId, m.title, m.description, m.publish_time as publishTime, u.user_id as authorId, u.nickname as authorName, m.state, u.avatar
+        from materials m
+        left join users u on m.user_id = u.user_id
+        where m.material_id = #{materialId}
+    </select>
+
+</mapper>
