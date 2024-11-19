@@ -8,13 +8,13 @@ import com.example.dataset.utils.PageResult;
 public interface MaterialService {
     void upload(Material material, String[] tags);
 
-    String download(int materialId);
+    String download(Integer materialId);
 
     PageResult pageSearchByKeyword(MaterialPageDTO materialPageDTO);
 
     PageResult pageSearchByNav(MaterialPageDTO materialPageDTO);
 
-    PageResult pageSearchById(int userId, Integer page, Integer pageSize, String sort);
+    PageResult pageSearchById(Integer userId, Integer page, Integer pageSize, String sort);
 
-    MaterialInfoDTO getMaterialById(int materialId);
+    MaterialInfoDTO getMaterialById(Integer materialId);
 }

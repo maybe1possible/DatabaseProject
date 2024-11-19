@@ -13,16 +13,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
-    private int comment_id;
+    private Integer comment_id;
 
-    private int materialId;
+    private Integer materialId;
 
-    private int UserId;
+    private Integer UserId;
 
     private String content;
 
     private LocalDateTime commentTime;
 
     // 0:待审核 1:审核通过 2:审核不通过
-    private int state;
+    private Integer state;
 }

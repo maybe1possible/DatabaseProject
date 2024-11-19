@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class systemInformation {
-    private int informationId;
+    private Integer informationId;
 
-    private int adminId;
+    private Integer adminId;
 
     private String title;
 

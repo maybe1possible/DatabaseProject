@@ -25,13 +25,13 @@ public class User implements Serializable {
 
     private String sex;
 
-    private int status;
+    private Integer status;
 
     private String mobile;
 
     private String email;
 
-    private int score;
+    private Integer score;
 
     private LocalDateTime genTime;
 

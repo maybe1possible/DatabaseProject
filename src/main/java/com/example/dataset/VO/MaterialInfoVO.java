@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MaterialInfoVO {
-    private int material_id;
+    private Integer material_id;
 
     private String title;
 
@@ -34,7 +34,7 @@ public class MaterialInfoVO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Author {
-        private int id;
+        private Integer id;
         private String name;
         private String avatar;
     }

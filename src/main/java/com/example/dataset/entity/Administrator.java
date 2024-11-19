@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Administrator {
-    private int adminId;
+    private Integer adminId;
 
     private String account;
 

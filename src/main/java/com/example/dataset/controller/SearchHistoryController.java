@@ -27,7 +27,7 @@ public class SearchHistoryController {
 
     @GetMapping("/getSearchHistory")
     @ApiOperation("获取搜索记录")
-    public ResultUtils<List<SearchHistoryVO>> getSearchHistory(@RequestParam int userId) {
+    public ResultUtils<List<SearchHistoryVO>> getSearchHistory(@RequestParam Integer userId) {
         return ResultUtils.success(searchHistoryService.getSearchHistory(userId));
     }
 

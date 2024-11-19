@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Material {
-    private int materialId;
+    private Integer materialId;
     // 0: 仅查看 1: 可下载 2:待审核 3:未通过
-    private int state;
+    private Integer state;
 
-    private int userId;
+    private Integer userId;
     // 服务器地址
     private String contentPath;
 

@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Upload {
-    private int materialId;
+    private Integer materialId;
 
-    private int userId;
+    private Integer userId;
 
     private LocalDateTime uploadTime;
 }

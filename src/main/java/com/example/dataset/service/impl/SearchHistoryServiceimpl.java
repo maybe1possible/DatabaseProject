@@ -16,12 +16,12 @@ public class SearchHistoryServiceimpl implements SearchHistoryService {
     private SearchHistoryMapper searchHistoryMapper;
 
     @Override
-    public void addSearchHistory(int userId, String keyword) {
+    public void addSearchHistory(Integer userId, String keyword) {
         searchHistoryMapper.addSearchHistory(userId, keyword, LocalDateTime.now());
     }
 
     @Override
-    public List<SearchHistoryVO> getSearchHistory(int userId) {
+    public List<SearchHistoryVO> getSearchHistory(Integer userId) {
         return searchHistoryMapper.getSearchHistoryByUserId(userId);
     }
 }

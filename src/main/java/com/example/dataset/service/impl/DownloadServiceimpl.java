@@ -16,7 +16,7 @@ public class DownloadServiceimpl implements DownloadService {
     private DownloadMapper downloadMapper;
 
     @Override
-    public PageResult getMyDownloads(int user_id, int pageNum, int pageSize) {
+    public PageResult getMyDownloads(Integer user_id, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         Page<DownloadInfoVO> page = downloadMapper.getDownloadInfoById(user_id);
         return new PageResult(page.getTotal(), page.getResult());

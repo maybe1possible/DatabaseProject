@@ -5,7 +5,7 @@ import com.example.dataset.VO.SearchHistoryVO;
 import java.util.List;
 
 public interface SearchHistoryService {
-    void addSearchHistory(int userId, String keyword);
+    void addSearchHistory(Integer userId, String keyword);
 
-    List<SearchHistoryVO> getSearchHistory(int userId);
+    List<SearchHistoryVO> getSearchHistory(Integer userId);
 }

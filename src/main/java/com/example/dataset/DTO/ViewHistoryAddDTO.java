@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ViewHistoryAddDTO {
-    int user_id;
-    int article_id;
+    Integer user_id;
+    Integer article_id;
 }

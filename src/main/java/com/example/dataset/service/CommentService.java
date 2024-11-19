@@ -6,7 +6,7 @@ import com.example.dataset.utils.PageResult;
 public interface CommentService {
     void postComment(CommentPostDTO commentPostDTO);
 
-    PageResult getCommentPageById(int article_id, int pageSize, int pageNumber);
+    PageResult getCommentPageById(Integer article_id, Integer pageSize, Integer pageNumber);
 
-    PageResult getMyCommentById(int user_id, int pageSize, int pageNumber);
+    PageResult getMyCommentById(Integer user_id, Integer pageSize, Integer pageNumber);
 }

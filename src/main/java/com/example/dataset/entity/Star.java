@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Star {
-    private int materialId;
+    private Integer materialId;
 
-    private int userId;
+    private Integer userId;
 
     private LocalDateTime starTime;
 
-    private int directoryId;
+    private Integer directoryId;
 }

@@ -25,13 +25,13 @@ public class CommentController {
 
     @GetMapping("/getComment")
     @ApiOperation("获取评论")
-    public ResultUtils<PageResult> getComment(@RequestParam int article_id, int pageSize, int pageNumber) {
+    public ResultUtils<PageResult> getComment(@RequestParam Integer article_id, Integer pageSize, Integer pageNumber) {
         return ResultUtils.success(commentService.getCommentPageById(article_id, pageSize, pageNumber));
     }
     // TODO 获取我的评论
     @GetMapping("/getMyComment")
     @ApiOperation("获取我的评论")
-    public ResultUtils<PageResult> getMyComment(@RequestParam int user_id, int pageSize, int pageNumber) {
+    public ResultUtils<PageResult> getMyComment(@RequestParam Integer user_id, Integer pageSize, Integer pageNumber) {
         return ResultUtils.success(commentService.getMyCommentById(user_id, pageSize, pageNumber));
     }
 }

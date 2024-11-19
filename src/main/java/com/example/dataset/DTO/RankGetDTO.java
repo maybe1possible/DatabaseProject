@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class RankGetDTO {
     private String type;
-    private int limit;
+    private Integer limit;
 }

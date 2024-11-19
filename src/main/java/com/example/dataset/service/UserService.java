@@ -7,7 +7,7 @@ import com.example.dataset.entity.User;
 public interface UserService {
     User wxLogin(UserLoginDTO userLoginDTO);
 
-    User getById(int userId);
+    User getById(Integer userId);
 
     void updateUserInfo(UserUpdateDTO userUpdateDTO);
 }

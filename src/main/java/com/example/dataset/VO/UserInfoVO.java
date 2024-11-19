@@ -15,7 +15,7 @@ public class UserInfoVO {
     private String major;
 //    private String password;
     private String sex;
-    private int status;
+    private Integer status;
     private String mobile;
     private String email;
     private String avatar;

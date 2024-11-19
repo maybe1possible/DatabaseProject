@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StarDirectory {
-    private int directoryId;
+    private Integer directoryId;
 
     private String directoryName;
 
     private String description;
 
-    private int userId;
+    private Integer userId;
 
     private LocalDateTime time;
 }

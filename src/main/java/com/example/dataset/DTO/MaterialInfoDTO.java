@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class MaterialInfoDTO {
-    private int materialId;
+    private Integer materialId;
 
     private String title;
 
@@ -15,13 +15,13 @@ public class MaterialInfoDTO {
 
     private LocalDateTime publishTime;
 
-    private int authorId;
+    private Integer authorId;
 
     private String authorName;
 
     private String avatar;
 
-    private int status;
+    private Integer status;
 
     private String content_path;
 

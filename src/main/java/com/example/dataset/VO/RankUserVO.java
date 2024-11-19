@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RankUserVO {
-    private int id;
+    private Integer id;
     private String name;
-    private int rank;
-    private int score;
+    private Integer rank;
+    private Integer score;
 }

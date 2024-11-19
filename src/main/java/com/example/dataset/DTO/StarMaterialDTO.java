@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class StarMaterialDTO {
-    int favorites_id;
+    Integer favorites_id;
 
-    int article_id;
+    Integer article_id;
 
     String type;
 }

@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class SearchHistoryAddDTO {
-    int userId;
+    Integer userId;
     String keyword;
 }

@@ -24,14 +24,14 @@ public class CommentServiceimpl implements CommentService {
     }
 
     @Override
-    public PageResult getCommentPageById(int article_id, int pageSize, int pageNumber) {
+    public PageResult getCommentPageById(Integer article_id, Integer pageSize, Integer pageNumber) {
         PageHelper.startPage(pageNumber, pageSize);
         Page<CommentInfoVO> page = commentMapper.getCommentPageById(article_id);
         return new PageResult(page.getTotal(), page.getResult());
     }
 
     @Override
-    public PageResult getMyCommentById(int user_id, int pageSize, int pageNumber) {
+    public PageResult getMyCommentById(Integer user_id, Integer pageSize, Integer pageNumber) {
         PageHelper.startPage(pageNumber, pageSize);
         Page<MyCommentInfoVO> page = commentMapper.getMyCommentById(user_id);
         return new PageResult(page.getTotal(), page.getResult());

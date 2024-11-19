@@ -15,7 +15,7 @@ public class RankServiceimpl implements RankService {
     private RankMapper rankMapper;
 
     @Override
-    public List getRankByType(String type, int limit) {
+    public List getRankByType(String type, Integer limit) {
         if (type.equals("article")) {
             return rankMapper.getArticleRank(limit);
         } else if (type.equals("user")) {

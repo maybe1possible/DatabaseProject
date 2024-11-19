@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchHistroy {
-    private int userId;
+    private Integer userId;
 
     private String keyContent;
 }

@@ -17,12 +17,12 @@ public class ViewHistoryServiceimpl implements ViewHistoryService {
     ViewHistoryMapper viewHistoryMapper;
 
     @Override
-    public void addViewHistory(int userId, int articleId) {
+    public void addViewHistory(Integer userId, Integer articleId) {
         viewHistoryMapper.addViewHistory(userId, articleId, LocalDateTime.now());
     }
 
     @Override
-    public PageResult getViewHistory(int userId, int pageSize, int pageNum) {
+    public PageResult getViewHistory(Integer userId, Integer pageSize, Integer pageNum) {
         PageHelper.startPage(pageNum, pageSize);
         Page<ViewHistoryVO> page = viewHistoryMapper.getViewHistoryPageById(userId);
         return new PageResult(page.getTotal(), page.getResult());

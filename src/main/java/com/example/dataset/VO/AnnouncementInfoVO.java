@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnnouncementInfoVO {
-    int announcementId;
+    Integer announcementId;
     String title;
     LocalDateTime time;
 }

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentInfoVO {
-    int commentId;
+    Integer commentId;
 
     String content;
 
@@ -20,14 +20,14 @@ public class CommentInfoVO {
 
     LocalDateTime time;
 
-    int total;
+    Integer total;
 
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Author {
-        private int id;
+        private Integer id;
         private String name;
         private String avatar;
     }

@@ -23,7 +23,7 @@ public class DownloadController {
 
     @GetMapping("/myDownloads")
     @ApiOperation("获得我的下载")
-    public ResultUtils<PageResult> myDownloads(@RequestParam int user_id, int pageNum, int pageSize) {
+    public ResultUtils<PageResult> myDownloads(@RequestParam Integer user_id, Integer pageNum, Integer pageSize) {
         return ResultUtils.success(downloadService.getMyDownloads(user_id, pageNum, pageSize));
     }
     // TODO 上传下载

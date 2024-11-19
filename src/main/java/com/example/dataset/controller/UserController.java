@@ -50,7 +50,7 @@ public class UserController {
     @GetMapping("/getUserInfo")
     @ApiOperation("获取用户信息")
 //    public ResultUtils<UserInfoVO> getUserInfo(UserInfoGetDTO userInfoGetDTO) {
-    public ResultUtils<UserInfoVO> getUserInfo(int user_id) {
+    public ResultUtils<UserInfoVO> getUserInfo(Integer user_id) {
         User user = userService.getById(user_id);
 
         if (user == null) {

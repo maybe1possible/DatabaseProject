@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class StarDirectoryCreateDTO {
-    private int user_id;
+    private Integer user_id;
     private String folder_name;
     private String description;
 }

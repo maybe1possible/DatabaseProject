@@ -20,7 +20,7 @@ public class RankController {
 
     @GetMapping("/getRankings")
     @ApiOperation("获取排名")
-    public ResultUtils<List> getRankings(String type, int limit) {
+    public ResultUtils<List> getRankings(String type, Integer limit) {
         try {
             List rankByType = rankService.getRankByType(type, limit);
             return ResultUtils.success(rankByType);

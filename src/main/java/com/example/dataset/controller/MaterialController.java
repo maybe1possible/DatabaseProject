@@ -46,7 +46,7 @@ public class MaterialController {
     @PostMapping("/upload")
     @ApiOperation("上传资料")
     public ResultUtils upload(@RequestParam("file") MultipartFile file,
-                              @RequestParam("user_id") int user_id,
+                              @RequestParam("user_id") Integer user_id,
                               @RequestParam("title") String title,
                               @RequestParam("description") String description,
                               @RequestParam("tags") String[] tags,
@@ -80,7 +80,7 @@ public class MaterialController {
 
     @PostMapping("/download")
     @ApiOperation("下载资料")
-    public ResultUtils<String> download(@RequestParam("material_id") int material_id) {
+    public ResultUtils<String> download(@RequestParam("material_id") Integer material_id) {
         String downloadUrl = materialService.download(material_id);
         if (downloadUrl == null) {
             return ResultUtils.error("文件不存在");
@@ -114,14 +114,14 @@ public class MaterialController {
 
     @GetMapping("/getMyPostArticle")
     @ApiOperation("获取用户上传的资料列表")
-    public ResultUtils<PageResult> getMyPostArticles(int userId, Integer page, Integer pageSize, String sort) {
+    public ResultUtils<PageResult> getMyPostArticles(Integer userId, Integer page, Integer pageSize, String sort) {
         PageResult result = materialService.pageSearchById(userId, page, pageSize, sort);
         return ResultUtils.success(result);
     }
 
     @GetMapping("/getArticleDetail")
     @ApiOperation("获取资料细节")
-    public ResultUtils<MaterialInfoVO> getArticleDetail(@RequestParam("material_id") int material_id) {
+    public ResultUtils<MaterialInfoVO> getArticleDetail(@RequestParam("material_id") Integer material_id) {
         MaterialInfoDTO materialInfoDTO = materialService.getMaterialById(material_id);
         MaterialInfoVO materialInfoVO = MaterialInfoVO.builder()
                 .material_id(material_id)

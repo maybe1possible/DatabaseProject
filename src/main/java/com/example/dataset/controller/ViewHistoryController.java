@@ -25,7 +25,7 @@ public class ViewHistoryController {
 
     @GetMapping("/getViewHistory")
     @ApiOperation("查找浏览记录")
-    public ResultUtils<PageResult> getViewHistory(int user_id, int pageSize, int pageNum) {
+    public ResultUtils<PageResult> getViewHistory(Integer user_id, Integer pageSize, Integer pageNum) {
         return ResultUtils.success(viewHistoryService.getViewHistory(user_id, pageSize, pageNum));
     }
 

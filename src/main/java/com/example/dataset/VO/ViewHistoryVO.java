@@ -18,5 +18,5 @@ public class ViewHistoryVO {
 
     private String nickname;
 
-    private int score;
+    private Integer score;
 }
