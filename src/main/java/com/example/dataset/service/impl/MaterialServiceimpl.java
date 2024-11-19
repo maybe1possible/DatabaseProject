@@ -4,7 +4,6 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.example.dataset.DTO.MaterialInfoDTO;
 import com.example.dataset.DTO.MaterialPageDTO;
-import com.example.dataset.DTO.MyMaterialPageDTO;
 import com.example.dataset.VO.MaterialListVO;
 import com.example.dataset.config.AliOssProperties;
 import com.example.dataset.entity.Material;
@@ -91,10 +90,10 @@ public class MaterialServiceimpl implements MaterialService {
     }
 
     @Override
-    public PageResult pageSearchById(MyMaterialPageDTO myMaterialPageDTO) {
-        PageHelper.startPage(myMaterialPageDTO.getPage(), myMaterialPageDTO.getPageSize());
-        Page<MaterialListVO> page = materialMapper.pageSearchById(myMaterialPageDTO);
-        return new PageResult(page.getTotal(), page.getResult());
+    public PageResult pageSearchById(int userId, Integer page, Integer pageSize, String sort) {
+        PageHelper.startPage(page, pageSize);
+        Page<MaterialListVO> pages = materialMapper.pageSearchById(userId, sort);
+        return new PageResult(pages.getTotal(), pages.getResult());
     }
 
     @Override

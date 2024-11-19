@@ -2,7 +2,6 @@ package com.example.dataset.service;
 
 import com.example.dataset.DTO.MaterialInfoDTO;
 import com.example.dataset.DTO.MaterialPageDTO;
-import com.example.dataset.DTO.MyMaterialPageDTO;
 import com.example.dataset.entity.Material;
 import com.example.dataset.utils.PageResult;
 
@@ -15,7 +14,7 @@ public interface MaterialService {
 
     PageResult pageSearchByNav(MaterialPageDTO materialPageDTO);
 
-    PageResult pageSearchById(MyMaterialPageDTO myMaterialPageDTO);
+    PageResult pageSearchById(int userId, Integer page, Integer pageSize, String sort);
 
     MaterialInfoDTO getMaterialById(int materialId);
 }

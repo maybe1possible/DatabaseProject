@@ -1,6 +1,5 @@
 package com.example.dataset.service.impl;
 
-import com.example.dataset.DTO.MyDownloadPageDTO;
 import com.example.dataset.VO.DownloadInfoVO;
 import com.example.dataset.mapper.DownloadMapper;
 import com.example.dataset.service.DownloadService;
@@ -17,9 +16,9 @@ public class DownloadServiceimpl implements DownloadService {
     private DownloadMapper downloadMapper;
 
     @Override
-    public PageResult getMyDownloads(MyDownloadPageDTO myDownloadPageDTO) {
-        PageHelper.startPage(myDownloadPageDTO.getPageNum(), myDownloadPageDTO.getPageSize());
-        Page<DownloadInfoVO> page = downloadMapper.getDownloadInfoById(myDownloadPageDTO.getUser_id());
+    public PageResult getMyDownloads(int user_id, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        Page<DownloadInfoVO> page = downloadMapper.getDownloadInfoById(user_id);
         return new PageResult(page.getTotal(), page.getResult());
     }
 }

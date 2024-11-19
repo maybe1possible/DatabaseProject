@@ -1,9 +1,8 @@
 package com.example.dataset.service.impl;
 
-import com.example.dataset.DTO.CommentGetDTO;
 import com.example.dataset.DTO.CommentPostDTO;
-import com.example.dataset.DTO.MyCommentGetDTO;
 import com.example.dataset.VO.CommentInfoVO;
+import com.example.dataset.VO.MyCommentInfoVO;
 import com.example.dataset.mapper.CommentMapper;
 import com.example.dataset.service.CommentService;
 import com.example.dataset.utils.PageResult;
@@ -25,16 +24,16 @@ public class CommentServiceimpl implements CommentService {
     }
 
     @Override
-    public PageResult getCommentPageById(CommentGetDTO commentGetDTO) {
-        PageHelper.startPage(commentGetDTO.getPageNumber(), commentGetDTO.getPageSize());
-        Page<CommentInfoVO> page = commentMapper.getCommentPageById(commentGetDTO.getArticle_id());
+    public PageResult getCommentPageById(int article_id, int pageSize, int pageNumber) {
+        PageHelper.startPage(pageNumber, pageSize);
+        Page<CommentInfoVO> page = commentMapper.getCommentPageById(article_id);
         return new PageResult(page.getTotal(), page.getResult());
     }
 
     @Override
-    public PageResult getMyCommentById(MyCommentGetDTO mycommentGetDTO) {
-        PageHelper.startPage(mycommentGetDTO.getPageNum(), mycommentGetDTO.getPageSize());
-        Page<MyCommentGetDTO> page = commentMapper.getMyCommentById(mycommentGetDTO.getId());
+    public PageResult getMyCommentById(int user_id, int pageSize, int pageNumber) {
+        PageHelper.startPage(pageNumber, pageSize);
+        Page<MyCommentInfoVO> page = commentMapper.getMyCommentById(user_id);
         return new PageResult(page.getTotal(), page.getResult());
     }
 }

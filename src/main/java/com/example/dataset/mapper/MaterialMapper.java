@@ -3,7 +3,6 @@ package com.example.dataset.mapper;
 
 import com.example.dataset.DTO.MaterialInfoDTO;
 import com.example.dataset.DTO.MaterialPageDTO;
-import com.example.dataset.DTO.MyMaterialPageDTO;
 import com.example.dataset.VO.MaterialListVO;
 import com.example.dataset.entity.Material;
 import com.github.pagehelper.Page;
@@ -24,7 +23,7 @@ public interface MaterialMapper {
 
     Page<MaterialListVO> pageSearchByOfficial(MaterialPageDTO materialPageDTO);
 
-    Page<MaterialListVO> pageSearchById(MyMaterialPageDTO myMaterialPageDTO);
+    Page<MaterialListVO> pageSearchById(int userId, String sort);
 
     @Select("select * from materials where material_id = #{materialId}")
     Material getMaterialById(int materialId);

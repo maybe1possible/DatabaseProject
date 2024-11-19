@@ -15,11 +15,11 @@ public class RankServiceimpl implements RankService {
     private RankMapper rankMapper;
 
     @Override
-    public List getRankByType(RankGetDTO rankGetDTO) {
-        if (rankGetDTO.getType().equals("article")) {
-            return rankMapper.getArticleRank(rankGetDTO.getLimit());
-        } else if (rankGetDTO.getType().equals("user")) {
-            return rankMapper.getUserRank(rankGetDTO.getLimit());
+    public List getRankByType(String type, int limit) {
+        if (type.equals("article")) {
+            return rankMapper.getArticleRank(limit);
+        } else if (type.equals("user")) {
+            return rankMapper.getUserRank(limit);
         } else {
             throw new RuntimeException("参数错误");
         }

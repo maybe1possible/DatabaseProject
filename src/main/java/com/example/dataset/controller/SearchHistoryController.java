@@ -1,17 +1,13 @@
 package com.example.dataset.controller;
 
 import com.example.dataset.DTO.SearchHistoryAddDTO;
-import com.example.dataset.DTO.SearchHistoryGetDTO;
 import com.example.dataset.VO.SearchHistoryVO;
 import com.example.dataset.service.SearchHistoryService;
 import com.example.dataset.utils.ResultUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,10 +25,10 @@ public class SearchHistoryController {
         return ResultUtils.success();
     }
 
-    @PostMapping("/getSearchHistory")
+    @GetMapping("/getSearchHistory")
     @ApiOperation("获取搜索记录")
-    public ResultUtils<List<SearchHistoryVO>> getSearchHistory(@RequestBody SearchHistoryGetDTO searchHistoryGetDTO) {
-        return ResultUtils.success(searchHistoryService.getSearchHistory(searchHistoryGetDTO.getUserId()));
+    public ResultUtils<List<SearchHistoryVO>> getSearchHistory(@RequestParam int userId) {
+        return ResultUtils.success(searchHistoryService.getSearchHistory(userId));
     }
 
     //TODO 定时请求历史记录

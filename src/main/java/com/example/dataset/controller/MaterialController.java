@@ -3,7 +3,6 @@ package com.example.dataset.controller;
 
 import com.example.dataset.DTO.MaterialInfoDTO;
 import com.example.dataset.DTO.MaterialPageDTO;
-import com.example.dataset.DTO.MyMaterialPageDTO;
 import com.example.dataset.VO.MaterialInfoVO;
 import com.example.dataset.entity.Material;
 import com.example.dataset.service.MaterialService;
@@ -91,7 +90,15 @@ public class MaterialController {
 
     @GetMapping("/getArticles")
     @ApiOperation("获取资料列表")
-    public ResultUtils<PageResult> getArticles(@RequestBody MaterialPageDTO materialPageDTO) {
+    public ResultUtils<PageResult> getArticles(String type, String keyword, String navName, Integer page, Integer pageSize, String sort) {
+        MaterialPageDTO materialPageDTO = MaterialPageDTO.builder()
+                .type(type)
+                .keyword(keyword)
+                .navName(navName)
+                .page(page)
+                .pageSize(pageSize)
+                .sort(sort)
+                .build();
         if (materialPageDTO.getType().equals("search")) {
             if (materialPageDTO.getKeyword().isEmpty()) return ResultUtils.error("请输入关键词");
             PageResult result = materialService.pageSearchByKeyword(materialPageDTO);
@@ -107,8 +114,8 @@ public class MaterialController {
 
     @GetMapping("/getMyPostArticle")
     @ApiOperation("获取用户上传的资料列表")
-    public ResultUtils<PageResult> getMyPostArticles(@RequestBody MyMaterialPageDTO myMaterialPageDTO) {
-        PageResult result = materialService.pageSearchById(myMaterialPageDTO);
+    public ResultUtils<PageResult> getMyPostArticles(int userId, Integer page, Integer pageSize, String sort) {
+        PageResult result = materialService.pageSearchById(userId, page, pageSize, sort);
         return ResultUtils.success(result);
     }
 

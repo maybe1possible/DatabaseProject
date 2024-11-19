@@ -2,7 +2,6 @@ package com.example.dataset.service.impl;
 
 import com.example.dataset.DTO.StarDirectoryCreateDTO;
 import com.example.dataset.DTO.StarMaterialDTO;
-import com.example.dataset.DTO.StarPageDTO;
 import com.example.dataset.VO.StarAllVO;
 import com.example.dataset.VO.StarInfoVO;
 import com.example.dataset.entity.StarDirectory;
@@ -54,15 +53,15 @@ public class StarServiceimpl implements StarService {
     }
 
     @Override
-    public PageResult getStars(StarPageDTO starPageDTO) {
-        if (starPageDTO.getFavorites_id() == 0) {
+    public PageResult getStars(Integer favorites_id, Integer user_id, Integer pageNumber, Integer pageSize) {
+        if (favorites_id == 0) {
 //            PageHelper.startPage(starPageDTO.getPageNumber(), starPageDTO.getPageSize());
 //            Page<StarAllVO> page = starMapper.getStarDirectorysByUserId(starPageDTO.getUser_id());
-            List<StarAllVO> starDirectorysByUserId = starMapper.getStarDirectorysByUserId(starPageDTO.getUser_id());
+            List<StarAllVO> starDirectorysByUserId = starMapper.getStarDirectorysByUserId(user_id);
             return new PageResult(starDirectorysByUserId.size(), starDirectorysByUserId);
         }
-        PageHelper.startPage(starPageDTO.getPageNumber(), starPageDTO.getPageSize());
-        Page<StarInfoVO> page = starMapper.getMaterialByDirId(starPageDTO.getFavorites_id());
+        PageHelper.startPage(pageNumber, pageSize);
+        Page<StarInfoVO> page = starMapper.getMaterialByDirId(favorites_id);
         return new PageResult(page.getTotal(), page.getResult());
     }
 }

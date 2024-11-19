@@ -1,7 +1,7 @@
 package com.example.dataset.mapper;
 
-import com.example.dataset.DTO.MyCommentGetDTO;
 import com.example.dataset.VO.CommentInfoVO;
+import com.example.dataset.VO.MyCommentInfoVO;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.*;
 
@@ -27,5 +27,5 @@ public interface CommentMapper {
     Page<CommentInfoVO> getCommentPageById(int articleId);
 
     @Select("select m.material_id, m.title, m.file_type, c.content, c.comment_time, c.state from comments c left join materials m on c.material_id=m.material_id where c.user_id=#{id}")
-    Page<MyCommentGetDTO> getMyCommentById(int id);
+    Page<MyCommentInfoVO> getMyCommentById(int id);
 }

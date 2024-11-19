@@ -2,7 +2,6 @@ package com.example.dataset.controller;
 
 import com.example.dataset.DTO.StarDirectoryCreateDTO;
 import com.example.dataset.DTO.StarMaterialDTO;
-import com.example.dataset.DTO.StarPageDTO;
 import com.example.dataset.exception.DuplicateDirectoryException;
 import com.example.dataset.service.StarService;
 import com.example.dataset.utils.PageResult;
@@ -44,8 +43,8 @@ public class StarController {
 
     @GetMapping("/getMyStars")
     @ApiOperation("获取我的收藏")
-    public ResultUtils<PageResult> getMyStars(@RequestBody StarPageDTO starPageDTO) {
-        return ResultUtils.success(starService.getStars(starPageDTO));
+    public ResultUtils<PageResult> getMyStars(Integer favorites_id, Integer user_id, Integer pageNumber, Integer pageSize) {
+        return ResultUtils.success(starService.getStars(favorites_id, user_id, pageNumber, pageSize));
     }
 
 

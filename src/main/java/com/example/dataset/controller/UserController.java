@@ -1,6 +1,5 @@
 package com.example.dataset.controller;
 
-import com.example.dataset.DTO.UserInfoGetDTO;
 import com.example.dataset.DTO.UserLoginDTO;
 import com.example.dataset.DTO.UserUpdateDTO;
 import com.example.dataset.VO.UserInfoVO;
@@ -50,9 +49,9 @@ public class UserController {
 
     @GetMapping("/getUserInfo")
     @ApiOperation("获取用户信息")
-    public ResultUtils<UserInfoVO> getUserInfo(@RequestBody UserInfoGetDTO userInfoGetDTO) {
-
-        User user = userService.getById(userInfoGetDTO.getUser_id());
+//    public ResultUtils<UserInfoVO> getUserInfo(UserInfoGetDTO userInfoGetDTO) {
+    public ResultUtils<UserInfoVO> getUserInfo(int user_id) {
+        User user = userService.getById(user_id);
 
         if (user == null) {
             return ResultUtils.error("用户不存在");
