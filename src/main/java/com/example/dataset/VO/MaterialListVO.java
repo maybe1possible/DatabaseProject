@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,7 +20,7 @@ public class MaterialListVO {
 
     private String author;
 
-    private String uploadTime;
+    private LocalDateTime uploadTime;
 
     private String heat;
 }

@@ -49,7 +49,7 @@ public class MaterialController {
                               @RequestParam("user_id") Integer user_id,
                               @RequestParam("title") String title,
                               @RequestParam("description") String description,
-                              @RequestParam("tags") String[] tags,
+                              @RequestParam("tags") String tags,
                               @RequestParam("limit") String limit) throws IOException {
 
         String originalFilename = file.getOriginalFilename();
@@ -63,7 +63,7 @@ public class MaterialController {
 
         Material material = Material.builder()
                 .userId(user_id)
-                .state((Objects.equals(limit, "onlyView")) ? 0 : 1)
+                .state(((Objects.equals(limit, "onlyView")) ? 0 : 1) + 3)
                 .fileType(extension)
                 .title(title)
                 .description(description)
@@ -73,7 +73,9 @@ public class MaterialController {
                 .size(fileSizeWithUnit)
                 .build();
 
-        materialService.upload(material, tags);
+        String[] Tags = tags.split(",");
+
+        materialService.upload(material, Tags);
 
         return ResultUtils.success();
     }

@@ -25,7 +25,7 @@ public class User implements Serializable {
 
     private String sex;
 
-    private Integer status;
+    private Integer status;//0正常，1封禁，2禁言
 
     private String mobile;
 

@@ -1,5 +1,6 @@
 package com.example.dataset.config;
 
+import com.example.dataset.interceptor.JwtTokenAdminInterceptor;
 import com.example.dataset.interceptor.JwtTokenUserInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,10 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     @Autowired
     private JwtTokenUserInterceptor jwtTokenUserInterceptor;
+
+    @Autowired
+    private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
+
     /**
      * 注册自定义拦截器
      *
@@ -39,6 +44,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .addPathPatterns("/api/**")
                 .excludePathPatterns("/api/user/login");
 //                .excludePathPatterns("/user/shop/status");
+        registry.addInterceptor(jwtTokenAdminInterceptor)
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin/administrator/login");
     }
 
     /**

@@ -13,7 +13,7 @@ public interface CommentMapper {
     @Insert("insert into comments (material_id, user_id, content, comment_time, state) values (#{articleId}, #{userId}, #{commentContent}, #{now}, 0)")
     void postComment(Integer articleId, String commentContent, Integer userId, LocalDateTime now);
 
-    @Select("select comment_id, u.user_id, u.nickname, u.avatar, content, comment_time as time,  (SELECT COUNT(*) FROM comments WHERE material_id = #{articleId}) as num  from comments left join users u on comments.user_id=u.user_id where comments.material_id=#{articleId}")
+    @Select("select comment_id, u.user_id, u.nickname, u.avatar, content, comment_time as time,  (SELECT COUNT(*) FROM comments WHERE material_id = #{articleId}) as num  from comments left join users u on comments.user_id=u.user_id where comments.material_id=#{articleId} and comments.state=1")
     @Results(id = "commentResult", value = {
             @Result(property = "commentId", column = "comment_id"),
             @Result(property = "content", column = "content"),

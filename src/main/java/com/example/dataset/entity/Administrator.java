@@ -14,7 +14,9 @@ import java.time.LocalDateTime;
 public class Administrator {
     private Integer adminId;
 
-    private String account;
+    private String username;
+
+    private String name;
 
     private String password;
 

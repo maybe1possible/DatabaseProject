@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class systemInformation {
+public class SystemInformation {
     private Integer informationId;
 
     private Integer adminId;

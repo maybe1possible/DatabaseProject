@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Material {
     private Integer materialId;
-    // 0: 仅查看 1: 可下载 2:待审核 3:未通过
+    // 0: 仅查看 1: 可下载 2:未通过 3:仅查看待审核 4:可下载待审核
     private Integer state;
 
     private Integer userId;
@@ -30,7 +30,7 @@ public class Material {
 
     private LocalDateTime publishTime;
 
-    private Integer official;
+    private Integer official;//0为非官方
 
     private String size;
 }
