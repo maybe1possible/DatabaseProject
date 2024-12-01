@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dataset.mapper.AdminMonitorMapper">
+    <select id="getDownloadMonitor" resultType="com.example.dataset.VO.DownloadMonitorVO">
+        <choose>
+            <when test="type == 'day'">
+                SELECT
+                date_trunc('day', download_time) AS downloadDate,
+                COUNT(*) AS downloadCount
+                FROM
+                downloads
+                WHERE
+                download_time >= CURRENT_TIMESTAMP - INTERVAL '10 days'
+                GROUP BY
+                downloadDate
+                ORDER BY
+                downloadDate;
+            </when>
+            <when test="type == 'week'">
+                SELECT
+                date_trunc('week', download_time) AS downloadDate,
+                COUNT(*) AS downloadCount
+                FROM
+                downloads
+                WHERE
+                download_time >= CURRENT_TIMESTAMP - INTERVAL '10 weeks'
+                GROUP BY
+                downloadDate
+                ORDER BY
+                downloadDate;
+            </when>
+            <when test="type == 'month'">
+                SELECT
+                date_trunc('month', download_time) AS downloadDate,
+                COUNT(*) AS downloadCount
+                FROM
+                downloads
+                WHERE
+                download_time >= CURRENT_TIMESTAMP - INTERVAL '10 months'
+                GROUP BY
+                downloadDate
+                ORDER BY
+                downloadDate;
+            </when>
+            <otherwise>
+                SELECT NULL AS downloadDate, NULL AS downloadCount;
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="getArticleMonitor" resultType="com.example.dataset.VO.ArticleMonitorVO">
+        <choose>
+            <when test="type == 'day'">
+                SELECT
+                date_trunc('day', publish_time) AS articleDate,
+                COUNT(*) AS articleCount
+                FROM
+                materials
+                WHERE
+                publish_time >= CURRENT_TIMESTAMP - INTERVAL '10 days'
+                GROUP BY
+                articleDate
+                ORDER BY
+                articleDate;
+            </when>
+            <when test="type == 'week'">
+                SELECT
+                date_trunc('week', publish_time) AS articleDate,
+                COUNT(*) AS articleCount
+                FROM
+                materials
+                WHERE
+                publish_time >= CURRENT_TIMESTAMP - INTERVAL '10 weeks'
+                GROUP BY
+                articleDate
+                ORDER BY
+                articleDate;
+            </when>
+            <when test="type == 'month'">
+                SELECT
+                date_trunc('month', publish_time) AS articleDate,
+                COUNT(*) AS articleCount
+                FROM
+                materials
+                WHERE
+                publish_time >= CURRENT_TIMESTAMP - INTERVAL '10 months'
+                GROUP BY
+                articleDate
+                ORDER BY
+                articleDate;
+            </when>
+            <otherwise>
+                SELECT NULL AS articleDate, NULL AS articleCount;
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="getUserMonitor" resultType="com.example.dataset.VO.UserMonitorVO">
+        <choose>
+            <when test="type == 'day'">
+                SELECT
+                date_trunc('day', gen_time) AS userDate,
+                COUNT(*) AS userCount
+                FROM
+                users
+                WHERE
+                gen_time >= CURRENT_TIMESTAMP - INTERVAL '10 days'
+                GROUP BY
+                userDate
+                ORDER BY
+                userDate;
+            </when>
+            <when test="type == 'week'">
+                SELECT
+                date_trunc('week', gen_time) AS userDate,
+                COUNT(*) AS userCount
+                FROM
+                users
+                WHERE
+                gen_time >= CURRENT_TIMESTAMP - INTERVAL '10 weeks'
+                GROUP BY
+                userDate
+                ORDER BY
+                userDate;
+            </when>
+            <when test="type == 'month'">
+                SELECT
+                date_trunc('month', gen_time) AS userDate,
+                COUNT(*) AS userCount
+                FROM
+                users
+                WHERE
+                gen_time >= CURRENT_TIMESTAMP - INTERVAL '10 months'
+                GROUP BY
+                userDate
+                ORDER BY
+                userDate;
+            </when>
+            <otherwise>
+                SELECT NULL AS userDate, NULL AS userCount;
+            </otherwise>
+        </choose>
+    </select>
+</mapper>

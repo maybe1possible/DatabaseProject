@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.dataset.mapper.AdminArticleMapper">
+    <update id="setArticleStatus">
+        update materials
+        <choose>
+            <when test="pass == 0">
+                set state = 2
+            </when>
+            <when test="pass == 1">
+                set state = state - 3
+            </when>
+        </choose>
+        where material_id = #{id}
+    </update>
+</mapper>
