@@ -22,4 +22,7 @@ public interface UserMapper {
 
     @Update("update users set last_login_time = #{now} where user_id = #{userId}")
     void setLastLoginTime(int userId, LocalDateTime now);
+
+    @Select("select avatar from users where user_id=#{userId}")
+    String getAvatarName(Integer userId);
 }

@@ -9,5 +9,5 @@ public interface UserService {
 
     User getById(Integer userId);
 
-    void updateUserInfo(UserUpdateDTO userUpdateDTO);
+    void updateUserInfo(User user);
 }

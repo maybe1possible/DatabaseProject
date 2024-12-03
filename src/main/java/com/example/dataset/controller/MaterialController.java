@@ -1,6 +1,8 @@
 package com.example.dataset.controller;
 
 
+import com.example.dataset.DTO.ChangeCompetenceDTO;
+import com.example.dataset.DTO.DeleteArticleDTO;
 import com.example.dataset.DTO.MaterialInfoDTO;
 import com.example.dataset.DTO.MaterialPageDTO;
 import com.example.dataset.VO.MaterialInfoVO;
@@ -92,8 +94,9 @@ public class MaterialController {
 
     @GetMapping("/getArticles")
     @ApiOperation("获取资料列表")
-    public ResultUtils<PageResult> getArticles(String type, String keyword, String navName, Integer page, Integer pageSize, String sort) {
+    public ResultUtils<PageResult> getArticles(Integer userId, String type, String keyword, String navName, Integer page, Integer pageSize, String sort) {
         MaterialPageDTO materialPageDTO = MaterialPageDTO.builder()
+                .userId(userId)
                 .type(type)
                 .keyword(keyword)
                 .navName(navName)
@@ -107,7 +110,7 @@ public class MaterialController {
             return ResultUtils.success(result);
         }
         if (materialPageDTO.getType().equals("nav")) {
-            if (!Objects.equals(materialPageDTO.getNavName(), "official") && !Objects.equals(materialPageDTO.getNavName(), "all")) return ResultUtils.error("navName参数错误");
+            if (!Objects.equals(materialPageDTO.getNavName(), "official") && !Objects.equals(materialPageDTO.getNavName(), "all") && !Objects.equals(materialPageDTO.getNavName(), "recommend")) return ResultUtils.error("navName参数错误");
             PageResult result = materialService.pageSearchByNav(materialPageDTO);
             return ResultUtils.success(result);
         }
@@ -133,8 +136,26 @@ public class MaterialController {
                 .publish_time(materialInfoDTO.getPublishTime())
                 .author(new MaterialInfoVO.Author(materialInfoDTO.getAuthorId(), materialInfoDTO.getAuthorName(), materialInfoDTO.getAvatar()))
                 .file_url(materialInfoDTO.getContent_path())
-                .limit(materialInfoDTO.getStatus() == 0 ? "onlyView" : "downLoad")
+                .limit(materialInfoDTO.getStatus() == 0 || materialInfoDTO.getStatus() == 3 ? "onlyView" : "downLoad")
                 .build();
         return ResultUtils.success(materialInfoVO);
+    }
+
+    @PostMapping("/deleteArticle")
+    @ApiOperation("删除上传的文件")
+    public ResultUtils deleteArticle(@RequestBody DeleteArticleDTO deleteArticleDTO) {
+        try {
+            materialService.deleteArticle(deleteArticleDTO);
+        } catch (Exception e) {
+            return ResultUtils.error(e.getMessage());
+        }
+        return ResultUtils.success();
+    }
+
+    @PostMapping("/changeCompetence")
+    @ApiOperation("修改文件权限")
+    public ResultUtils changeCompetence(@RequestBody ChangeCompetenceDTO changeCompetenceDTO) {
+        materialService.changeCompetence(changeCompetenceDTO);
+        return ResultUtils.success();
     }
 }

@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ViewHistoryVO {
+    private Integer materialId;
+
     private String title;
 
     private LocalDateTime time;

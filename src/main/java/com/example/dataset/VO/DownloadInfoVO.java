@@ -18,5 +18,7 @@ public class DownloadInfoVO {
 
     String fileSize;
 
+    String LocalPath;
+
     LocalDateTime downloadTime;
 }

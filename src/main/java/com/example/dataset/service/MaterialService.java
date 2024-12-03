@@ -1,5 +1,7 @@
 package com.example.dataset.service;
 
+import com.example.dataset.DTO.ChangeCompetenceDTO;
+import com.example.dataset.DTO.DeleteArticleDTO;
 import com.example.dataset.DTO.MaterialInfoDTO;
 import com.example.dataset.DTO.MaterialPageDTO;
 import com.example.dataset.entity.Material;
@@ -17,4 +19,8 @@ public interface MaterialService {
     PageResult pageSearchById(Integer userId, Integer page, Integer pageSize, String sort);
 
     MaterialInfoDTO getMaterialById(Integer materialId);
+
+    void deleteArticle(DeleteArticleDTO deleteArticleDTO);
+
+    void changeCompetence(ChangeCompetenceDTO changeCompetenceDTO);
 }

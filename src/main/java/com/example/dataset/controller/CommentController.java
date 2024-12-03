@@ -28,7 +28,6 @@ public class CommentController {
     public ResultUtils<PageResult> getComment(@RequestParam Integer article_id, Integer pageSize, Integer pageNumber) {
         return ResultUtils.success(commentService.getCommentPageById(article_id, pageSize, pageNumber));
     }
-    // TODO 获取我的评论
     @GetMapping("/getMyComment")
     @ApiOperation("获取我的评论")
     public ResultUtils<PageResult> getMyComment(@RequestParam Integer user_id, Integer pageSize, Integer pageNumber) {

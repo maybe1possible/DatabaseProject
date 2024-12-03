@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MaterialPageDTO {
+    private Integer userId;
+
     private String type;
 
     private String keyword;

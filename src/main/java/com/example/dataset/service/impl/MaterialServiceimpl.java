@@ -2,9 +2,12 @@ package com.example.dataset.service.impl;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import com.example.dataset.DTO.ChangeCompetenceDTO;
+import com.example.dataset.DTO.DeleteArticleDTO;
 import com.example.dataset.DTO.MaterialInfoDTO;
 import com.example.dataset.DTO.MaterialPageDTO;
 import com.example.dataset.VO.MaterialListVO;
+import com.example.dataset.VO.MyMaterialListVO;
 import com.example.dataset.config.AliOssProperties;
 import com.example.dataset.entity.Material;
 import com.example.dataset.mapper.MaterialMapper;
@@ -83,8 +86,13 @@ public class MaterialServiceimpl implements MaterialService {
     @Override
     public PageResult pageSearchByNav(MaterialPageDTO materialPageDTO) {
         PageHelper.startPage(materialPageDTO.getPage(), materialPageDTO.getPageSize());
+        Page<MaterialListVO> page = null;
         //TODO: implement recommend
-        Page<MaterialListVO> page = materialMapper.pageSearchByOfficial(materialPageDTO);
+        if (materialPageDTO.getNavName().equals("recommend")) {
+            page = materialMapper.pageSearchByRecommend(materialPageDTO);
+        } else {
+            page = materialMapper.pageSearchByOfficial(materialPageDTO);
+        }
         return new PageResult(page.getTotal(), page.getResult());
 
     }
@@ -92,7 +100,22 @@ public class MaterialServiceimpl implements MaterialService {
     @Override
     public PageResult pageSearchById(Integer userId, Integer page, Integer pageSize, String sort) {
         PageHelper.startPage(page, pageSize);
-        Page<MaterialListVO> pages = materialMapper.pageSearchById(userId, sort);
+        Page<MyMaterialListVO> pages = materialMapper.pageSearchById(userId, sort);
+        for (MyMaterialListVO myMaterialListVO : pages.getResult()) {
+            // 0: 仅查看 1: 可下载 2:未通过 3:仅查看待审核 4:可下载待审核
+            if (myMaterialListVO.getStatus() == 0 || myMaterialListVO.getStatus() == 3) {
+                myMaterialListVO.setCompetence("仅查看");
+            } else if (myMaterialListVO.getStatus() == 1 || myMaterialListVO.getStatus() == 4) {
+                myMaterialListVO.setCompetence("可下载");
+            }
+            if (myMaterialListVO.getStatus() < 2) {
+                myMaterialListVO.setPending("审核通过");
+            } else if (myMaterialListVO.getStatus() == 2) {
+                myMaterialListVO.setPending("审核未通过");
+            } else {
+                myMaterialListVO.setPending("待审核");
+            }
+        }
         return new PageResult(pages.getTotal(), pages.getResult());
     }
 
@@ -103,5 +126,28 @@ public class MaterialServiceimpl implements MaterialService {
         materialInfoDTO.setContent_path(download(materialId));
         materialInfoDTO.setTags(tagMapper.getTagsByMaterialId(materialId));
         return materialInfoDTO;
+    }
+
+    @Override
+    @Transactional
+    public void deleteArticle(DeleteArticleDTO deleteArticleDTO) {
+        Integer userId = materialMapper.getUserId(deleteArticleDTO.getArticleId());
+        if (userId != deleteArticleDTO.getUserId()) {
+            throw new RuntimeException("无法删除其它用户资料");
+        }
+        materialMapper.deleteArticle(deleteArticleDTO.getArticleId());
+    }
+
+    @Override
+    public void changeCompetence(ChangeCompetenceDTO changeCompetenceDTO) {
+        if (changeCompetenceDTO.getCompetence().equals("仅阅读")) {
+            Integer status = materialMapper.getStatusById(changeCompetenceDTO.getArticleId());
+            if (status < 2) materialMapper.changeCompetence(changeCompetenceDTO.getArticleId(), 0);
+            if (status > 2) materialMapper.changeCompetence(changeCompetenceDTO.getArticleId(), 3);
+        } else if (changeCompetenceDTO.getCompetence().equals("可下载")) {
+            Integer status = materialMapper.getStatusById(changeCompetenceDTO.getArticleId());
+            if (status < 2) materialMapper.changeCompetence(changeCompetenceDTO.getArticleId(), 1);
+            if (status > 2) materialMapper.changeCompetence(changeCompetenceDTO.getArticleId(), 4);
+        }
     }
 }

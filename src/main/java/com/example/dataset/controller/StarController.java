@@ -43,9 +43,7 @@ public class StarController {
 
     @GetMapping("/getMyStars")
     @ApiOperation("获取我的收藏")
-    public ResultUtils<PageResult> getMyStars(Integer favorites_id, Integer user_id, Integer pageNumber, Integer pageSize) {
-        return ResultUtils.success(starService.getStars(favorites_id, user_id, pageNumber, pageSize));
+    public ResultUtils<PageResult> getMyStars(Integer favoritesId, Integer userId, Integer pageNumber, Integer pageSize) {
+        return ResultUtils.success(starService.getStars(favoritesId, userId, pageNumber, pageSize));
     }
-
-
 }

@@ -2,8 +2,11 @@ package com.example.dataset.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSClientBuilder;
 import com.example.dataset.DTO.UserLoginDTO;
 import com.example.dataset.DTO.UserUpdateDTO;
+import com.example.dataset.config.AliOssProperties;
 import com.example.dataset.config.WechatConfiguration;
 import com.example.dataset.entity.User;
 import com.example.dataset.exception.LoginFailedException;
@@ -17,6 +20,7 @@ import org.springframework.util.DigestUtils;
 
 import java.beans.Transient;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +33,9 @@ public class UserServiceimpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private AliOssProperties aliOssProperties;
 
     @Override
     @Transient
@@ -67,19 +74,29 @@ public class UserServiceimpl implements UserService {
         return jsonObject.getString("openid");
     }
 
-    @Override
-    public User getById(Integer userId) {
-        return userMapper.getById(userId);
+    public String download(Integer userId) {
+        OSS ossClient = new OSSClientBuilder().build(aliOssProperties.getEndpoint(), aliOssProperties.getAccessKeyId(), aliOssProperties.getAccessKeySecret());
+
+        String filename = userMapper.getAvatarName(userId);
+
+        if (filename == null) {
+            return null;
+        }
+
+        Date expiration = new Date(System.currentTimeMillis() + 3600 * 1000);
+
+        return ossClient.generatePresignedUrl(aliOssProperties.getBucketName(), filename, expiration).toString();
     }
 
     @Override
-    public void updateUserInfo(UserUpdateDTO userUpdateDTO) {
-        User user = new User();
-        BeanUtils.copyProperties(userUpdateDTO, user);
+    public User getById(Integer userId) {
+        User user = userMapper.getById(userId);
+        user.setAvatar(download(user.getUserId()));
+        return user;
+    }
 
-        String password = DigestUtils.md5DigestAsHex(userUpdateDTO.getPassword().getBytes());
-        user.setPassword(password);
-
+    @Override
+    public void updateUserInfo(User user) {
         userMapper.update(user);
     }
 }

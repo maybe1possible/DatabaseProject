@@ -4,7 +4,7 @@
 <mapper namespace="com.example.dataset.mapper.ViewHistoryMapper">
 
     <select id="getViewHistoryPageById" resultType="com.example.dataset.VO.ViewHistoryVO">
-        select m.title, v.view_time as time, u.nickname,
+        select m.material_id as materialId, m.title, v.view_time as time, u.nickname,
                (COALESCE(c.comment_count,0) * 3 + COALESCE(d.download_count,0) * 5 + COALESCE(view.view_count,0) * 1 + COALESCE(s.star_count,0) * 8) as score
         from view_history v
         join materials m on m.material_id = v.material_id
