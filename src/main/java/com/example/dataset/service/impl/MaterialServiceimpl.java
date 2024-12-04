@@ -12,6 +12,7 @@ import com.example.dataset.config.AliOssProperties;
 import com.example.dataset.entity.Material;
 import com.example.dataset.mapper.MaterialMapper;
 import com.example.dataset.mapper.MaterialTagMapper;
+import com.example.dataset.mapper.SearchHistoryMapper;
 import com.example.dataset.mapper.TagMapper;
 import com.example.dataset.service.MaterialService;
 import com.example.dataset.utils.PageResult;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Service
@@ -36,6 +38,9 @@ public class MaterialServiceimpl implements MaterialService {
 
     @Autowired
     private MaterialTagMapper materialTagMapper;
+
+    @Autowired
+    private SearchHistoryMapper searchHistoryMapper;
 
     @Autowired
     private AliOssProperties aliOssProperties;
@@ -76,10 +81,12 @@ public class MaterialServiceimpl implements MaterialService {
     }
 
     @Override
+    @Transactional
     public PageResult pageSearchByKeyword(MaterialPageDTO materialPageDTO) {
         PageHelper.startPage(materialPageDTO.getPage(), materialPageDTO.getPageSize());
         Page<MaterialListVO> page = materialMapper.pageSearchByKeyword(materialPageDTO);
         log.info(String.valueOf(page.getTotal()));
+        searchHistoryMapper.addSearchHistory(materialPageDTO.getUserId(), materialPageDTO.getKeyword(), LocalDateTime.now());
         return new PageResult(page.getTotal(), page.getResult());
     }
 
@@ -87,14 +94,12 @@ public class MaterialServiceimpl implements MaterialService {
     public PageResult pageSearchByNav(MaterialPageDTO materialPageDTO) {
         PageHelper.startPage(materialPageDTO.getPage(), materialPageDTO.getPageSize());
         Page<MaterialListVO> page = null;
-        //TODO: implement recommend
         if (materialPageDTO.getNavName().equals("recommend")) {
             page = materialMapper.pageSearchByRecommend(materialPageDTO);
         } else {
             page = materialMapper.pageSearchByOfficial(materialPageDTO);
         }
         return new PageResult(page.getTotal(), page.getResult());
-
     }
 
     @Override

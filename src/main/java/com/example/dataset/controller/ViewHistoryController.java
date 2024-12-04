@@ -1,5 +1,6 @@
 package com.example.dataset.controller;
 
+import com.example.dataset.DTO.DeleteViewHistoryDTO;
 import com.example.dataset.DTO.ViewHistoryAddDTO;
 import com.example.dataset.service.ViewHistoryService;
 import com.example.dataset.utils.PageResult;
@@ -27,6 +28,13 @@ public class ViewHistoryController {
     @ApiOperation("查找浏览记录")
     public ResultUtils<PageResult> getViewHistory(Integer user_id, Integer pageSize, Integer pageNum) {
         return ResultUtils.success(viewHistoryService.getViewHistory(user_id, pageSize, pageNum));
+    }
+
+    @PostMapping("/deleteViewHistory")
+    @ApiOperation("删除浏览记录")
+    public ResultUtils deleteViewHistory(@RequestBody DeleteViewHistoryDTO deleteViewHistoryDTO) {
+        viewHistoryService.deleteViewHistory(deleteViewHistoryDTO.getViewHistoryId());
+        return ResultUtils.success();
     }
 
 }

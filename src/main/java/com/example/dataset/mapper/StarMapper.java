@@ -24,12 +24,18 @@ public interface StarMapper {
     @Select("select user_id from star_directory where directory_id=#{directory_id}")
     Integer getUserIdByStarId(int directory_id);
 
-    @Delete("delete from stars where directory_id=#{favoritesId} and material_id=#{articleId}")
-    void cancelStar(int favoritesId, int articleId);
+    @Delete("delete from stars where user_id=#{userId} and material_id=#{articleId}")
+    void cancelStar(int userId, int articleId);
 
     @Select("select d.directory_id, d.directory_name, (select COUNT(*) from stars where directory_id=d.directory_id) as article_size from star_directory d where user_id=#{user_id}")
     List<StarAllVO> getStarDirectorysByUserId(Integer userId);
 
     @Select("select m.material_id as articleId, m.title, m.description from stars s left join materials m on m.material_id=s.material_id where s.directory_id=#{favoritesId}")
     Page<StarInfoVO> getMaterialByDirId(Integer favoritesId);
+
+    @Select("select material_id from stars where user_id=#{userId} and material_id=#{materialId}")
+    List<Integer> getIfStared(Integer userId, Integer materialId);
+
+    @Delete("delete from star_directory where directory_id=#{id}")
+    void deleteFavorites(Integer id);
 }

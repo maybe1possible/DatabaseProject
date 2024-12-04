@@ -8,6 +8,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -17,8 +18,15 @@ public class ViewHistoryServiceimpl implements ViewHistoryService {
     ViewHistoryMapper viewHistoryMapper;
 
     @Override
+    @Transactional
     public void addViewHistory(Integer userId, Integer articleId) {
-        viewHistoryMapper.addViewHistory(userId, articleId, LocalDateTime.now());
+        Integer id = viewHistoryMapper.getIdByUserAndArticleId(userId, articleId);
+        if (id == null) {
+            viewHistoryMapper.addViewHistory(userId, articleId, LocalDateTime.now());
+        } else {
+            viewHistoryMapper.updateViewHistoryTime(id, LocalDateTime.now());
+        }
+
     }
 
     @Override
@@ -26,5 +34,10 @@ public class ViewHistoryServiceimpl implements ViewHistoryService {
         PageHelper.startPage(pageNum, pageSize);
         Page<ViewHistoryVO> page = viewHistoryMapper.getViewHistoryPageById(userId);
         return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    public void deleteViewHistory(Integer viewHistoryId) {
+        viewHistoryMapper.deleteViewHistory(viewHistoryId);
     }
 }

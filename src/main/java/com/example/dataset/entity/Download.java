@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Download {
+    private Integer downloadId;
+
     private Integer materialId;
 
     private Integer userId;

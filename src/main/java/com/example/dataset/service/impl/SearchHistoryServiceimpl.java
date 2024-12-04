@@ -17,11 +17,22 @@ public class SearchHistoryServiceimpl implements SearchHistoryService {
 
     @Override
     public void addSearchHistory(Integer userId, String keyword) {
-        searchHistoryMapper.addSearchHistory(userId, keyword, LocalDateTime.now());
+        Integer id = searchHistoryMapper.getIdBykeyword(keyword);
+        if (id == null) {
+            searchHistoryMapper.addSearchHistory(userId, keyword, LocalDateTime.now());
+        } else {
+            searchHistoryMapper.updateSearchHistoryTime(id, LocalDateTime.now());
+        }
+
     }
 
     @Override
     public List<SearchHistoryVO> getSearchHistory(Integer userId) {
         return searchHistoryMapper.getSearchHistoryByUserId(userId);
+    }
+
+    @Override
+    public void deleteSearchHistory(Integer searchHistoryId) {
+        searchHistoryMapper.deleteSearchHistory(searchHistoryId);
     }
 }

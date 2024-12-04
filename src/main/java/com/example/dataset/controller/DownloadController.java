@@ -1,5 +1,6 @@
 package com.example.dataset.controller;
 
+import com.example.dataset.DTO.DeleteDownloadDTO;
 import com.example.dataset.DTO.UploadDownloadDTO;
 import com.example.dataset.service.DownloadService;
 import com.example.dataset.utils.PageResult;
@@ -29,6 +30,13 @@ public class DownloadController {
     @ApiOperation("上传下载")
     public ResultUtils uploadDownloads(@RequestBody UploadDownloadDTO uploadDownloadDTO) {
         downloadService.uploadDownloads(uploadDownloadDTO);
+        return ResultUtils.success();
+    }
+
+    @PostMapping("/deleteDownload")
+    @ApiOperation("删除下载")
+    public ResultUtils deleteDownload(@RequestBody DeleteDownloadDTO deleteDownloadDTO) {
+        downloadService.deleteDownload(deleteDownloadDTO.getDownloadId());
         return ResultUtils.success();
     }
 }

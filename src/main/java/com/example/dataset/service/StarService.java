@@ -10,4 +10,8 @@ public interface StarService {
     void postStar(StarMaterialDTO starMaterialDTO);
 
     PageResult getStars(Integer favorites_id, Integer user_id, Integer pageNumber, Integer pageSize);
+
+    Integer getIfStared(Integer userId, Integer materialId);
+
+    void deleteFavorites(Integer id);
 }

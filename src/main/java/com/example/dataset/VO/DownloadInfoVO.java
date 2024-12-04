@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DownloadInfoVO {
+    Integer id;
+
     String title;
 
     String fileType;

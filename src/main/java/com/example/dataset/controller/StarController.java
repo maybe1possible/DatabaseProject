@@ -1,6 +1,7 @@
 package com.example.dataset.controller;
 
 import com.example.dataset.DTO.StarDirectoryCreateDTO;
+import com.example.dataset.DTO.StarDirectoryDeleteDTO;
 import com.example.dataset.DTO.StarMaterialDTO;
 import com.example.dataset.exception.DuplicateDirectoryException;
 import com.example.dataset.service.StarService;
@@ -28,6 +29,13 @@ public class StarController {
         } catch (DuplicateDirectoryException e) {
             return ResultUtils.error(e.getMessage());
         }
+    }
+
+    @PostMapping("/deleteFavorites")
+    @ApiOperation("删除收藏夹")
+    public ResultUtils deleteFavorites(@RequestBody StarDirectoryDeleteDTO starDirectoryDeleteDTO) {
+        starService.deleteFavorites(starDirectoryDeleteDTO.getId());
+        return ResultUtils.success();
     }
 
     @PostMapping("/postStar")

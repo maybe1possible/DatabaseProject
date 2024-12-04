@@ -1,5 +1,6 @@
 package com.example.dataset.controller;
 
+import com.example.dataset.DTO.DeleteSearchHistoryDTO;
 import com.example.dataset.DTO.SearchHistoryAddDTO;
 import com.example.dataset.VO.SearchHistoryVO;
 import com.example.dataset.service.SearchHistoryService;
@@ -29,6 +30,13 @@ public class SearchHistoryController {
     @ApiOperation("获取搜索记录")
     public ResultUtils<List<SearchHistoryVO>> getSearchHistory(@RequestParam Integer userId) {
         return ResultUtils.success(searchHistoryService.getSearchHistory(userId));
+    }
+
+    @PostMapping("/deleteSearchHistory")
+    @ApiOperation("删除搜索记录")
+    public ResultUtils deleteSearchHistory(@RequestBody DeleteSearchHistoryDTO deleteSearchHistoryDTO) {
+        searchHistoryService.deleteSearchHistory(deleteSearchHistoryDTO.getSearchHistoryId());
+        return ResultUtils.success();
     }
 
     //TODO 定时请求历史记录

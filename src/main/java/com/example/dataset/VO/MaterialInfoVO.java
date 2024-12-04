@@ -24,6 +24,12 @@ public class MaterialInfoVO {
     private LocalDateTime publish_time;
 
     private Author author;
+    /**
+     * 材料的下载，0表示未被下载。
+     */
+    private Integer downloaded; // 0未被下载
+
+    private Integer stared;
 
     private String file_url;
 

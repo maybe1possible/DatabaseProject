@@ -13,8 +13,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class DownloadServiceimpl implements DownloadService {
@@ -39,5 +41,16 @@ public class DownloadServiceimpl implements DownloadService {
         } catch (DataAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Integer getIfDownloaded(Integer userId, Integer materialId) {
+        List<Integer> ids = downloadMapper.getIfDownloaded(userId, materialId);
+        return ids.isEmpty() ? 0 : 1;
+    }
+
+    @Override
+    public void deleteDownload(Integer downloadId) {
+        downloadMapper.deleteDownload(downloadId);
     }
 }

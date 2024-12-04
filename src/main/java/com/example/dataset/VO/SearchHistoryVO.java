@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SearchHistoryVO {
+    Integer id;
+
     String keyword;
 
     LocalDateTime time;

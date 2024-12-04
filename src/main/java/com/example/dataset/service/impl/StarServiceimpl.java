@@ -45,7 +45,7 @@ public class StarServiceimpl implements StarService {
             Integer user_id = starMapper.getUserIdByStarId(starMaterialDTO.getFavorites_id());
             starMapper.addStar(starMaterialDTO.getFavorites_id(), starMaterialDTO.getArticle_id(), user_id, LocalDateTime.now());
         } else if (starMaterialDTO.getType().equals("cancel")) {
-            starMapper.cancelStar(starMaterialDTO.getFavorites_id(), starMaterialDTO.getArticle_id());
+            starMapper.cancelStar(starMaterialDTO.getUser_id(), starMaterialDTO.getArticle_id());
         } else {
             throw new IllegalArgumentException("参数错误");
         }
@@ -63,5 +63,16 @@ public class StarServiceimpl implements StarService {
         PageHelper.startPage(pageNumber, pageSize);
         Page<StarInfoVO> page = starMapper.getMaterialByDirId(favorites_id);
         return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    public Integer getIfStared(Integer userId, Integer materialId) {
+        List<Integer> ids = starMapper.getIfStared(userId, materialId);
+        return ids.isEmpty() ? 0 : 1;
+    }
+
+    @Override
+    public void deleteFavorites(Integer id) {
+        starMapper.deleteFavorites(id);
     }
 }

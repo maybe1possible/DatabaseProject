@@ -7,7 +7,9 @@ import com.example.dataset.DTO.MaterialInfoDTO;
 import com.example.dataset.DTO.MaterialPageDTO;
 import com.example.dataset.VO.MaterialInfoVO;
 import com.example.dataset.entity.Material;
+import com.example.dataset.service.DownloadService;
 import com.example.dataset.service.MaterialService;
+import com.example.dataset.service.StarService;
 import com.example.dataset.utils.AliOssUtil;
 import com.example.dataset.utils.PageResult;
 import com.example.dataset.utils.ResultUtils;
@@ -28,6 +30,12 @@ import java.util.UUID;
 public class MaterialController {
     @Autowired
     MaterialService materialService;
+
+    @Autowired
+    DownloadService downloadService;
+
+    @Autowired
+    StarService starService;
 
     @Autowired
     private AliOssUtil aliOssUtil;
@@ -126,13 +134,17 @@ public class MaterialController {
 
     @GetMapping("/getArticleDetail")
     @ApiOperation("获取资料细节")
-    public ResultUtils<MaterialInfoVO> getArticleDetail(@RequestParam("material_id") Integer material_id) {
+    public ResultUtils<MaterialInfoVO> getArticleDetail(@RequestParam("user_id") Integer user_id, @RequestParam("material_id") Integer material_id) {
         MaterialInfoDTO materialInfoDTO = materialService.getMaterialById(material_id);
+        Integer downloaded = downloadService.getIfDownloaded(user_id, material_id);
+        Integer stared = starService.getIfStared(user_id, material_id);
         MaterialInfoVO materialInfoVO = MaterialInfoVO.builder()
                 .material_id(material_id)
                 .title(materialInfoDTO.getTitle())
                 .description(materialInfoDTO.getDescription())
                 .tags(materialInfoDTO.getTags())
+                .downloaded(downloaded)
+                .stared(stared)
                 .publish_time(materialInfoDTO.getPublishTime())
                 .author(new MaterialInfoVO.Author(materialInfoDTO.getAuthorId(), materialInfoDTO.getAuthorName(), materialInfoDTO.getAvatar()))
                 .file_url(materialInfoDTO.getContent_path())

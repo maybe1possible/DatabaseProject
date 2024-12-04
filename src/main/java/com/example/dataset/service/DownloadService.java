@@ -8,4 +8,8 @@ public interface DownloadService {
     PageResult getMyDownloads(Integer user_id, Integer pageNum, Integer pageSize);
 
     void uploadDownloads(UploadDownloadDTO uploadDownloadDTO);
+
+    Integer getIfDownloaded(Integer userId, Integer materialId);
+
+    void deleteDownload(Integer downloadId);
 }

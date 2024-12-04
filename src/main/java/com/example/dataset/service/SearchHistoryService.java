@@ -8,4 +8,6 @@ public interface SearchHistoryService {
     void addSearchHistory(Integer userId, String keyword);
 
     List<SearchHistoryVO> getSearchHistory(Integer userId);
+
+    void deleteSearchHistory(Integer searchHistoryId);
 }

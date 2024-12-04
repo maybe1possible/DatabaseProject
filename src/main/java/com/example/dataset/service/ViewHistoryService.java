@@ -6,4 +6,6 @@ public interface ViewHistoryService {
     void addViewHistory(Integer userId, Integer articleId);
 
     PageResult getViewHistory(Integer userId, Integer pageSize, Integer pageNum);
+
+    void deleteViewHistory(Integer viewHistoryId);
 }
