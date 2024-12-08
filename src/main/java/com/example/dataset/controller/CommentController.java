@@ -1,6 +1,7 @@
 package com.example.dataset.controller;
 
 import com.example.dataset.DTO.CommentPostDTO;
+import com.example.dataset.DTO.DeleteCommentDTO;
 import com.example.dataset.service.CommentService;
 import com.example.dataset.utils.PageResult;
 import com.example.dataset.utils.ResultUtils;
@@ -32,5 +33,11 @@ public class CommentController {
     @ApiOperation("获取我的评论")
     public ResultUtils<PageResult> getMyComment(@RequestParam Integer user_id, Integer pageSize, Integer pageNumber) {
         return ResultUtils.success(commentService.getMyCommentById(user_id, pageSize, pageNumber));
+    }
+    @PostMapping("/deleteMyComment")
+    @ApiOperation("删除我的评论")
+    public ResultUtils deleteMyComment(@RequestBody DeleteCommentDTO deleteCommentDTO) {
+        commentService.deleteComment(deleteCommentDTO);
+        return ResultUtils.success();
     }
 }

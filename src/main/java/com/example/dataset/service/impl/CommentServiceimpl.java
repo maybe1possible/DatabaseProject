@@ -1,6 +1,7 @@
 package com.example.dataset.service.impl;
 
 import com.example.dataset.DTO.CommentPostDTO;
+import com.example.dataset.DTO.DeleteCommentDTO;
 import com.example.dataset.VO.CommentInfoVO;
 import com.example.dataset.VO.MyCommentInfoVO;
 import com.example.dataset.mapper.CommentMapper;
@@ -35,5 +36,10 @@ public class CommentServiceimpl implements CommentService {
         PageHelper.startPage(pageNumber, pageSize);
         Page<MyCommentInfoVO> page = commentMapper.getMyCommentById(user_id);
         return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    public void deleteComment(DeleteCommentDTO deleteCommentDTO) {
+        commentMapper.deleteComment(deleteCommentDTO.getCommentId());
     }
 }

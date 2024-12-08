@@ -9,5 +9,5 @@ public interface SearchHistoryService {
 
     List<SearchHistoryVO> getSearchHistory(Integer userId);
 
-    void deleteSearchHistory(Integer searchHistoryId);
+    void deleteSearchHistory(Integer searchHistoryId, Integer userId);
 }

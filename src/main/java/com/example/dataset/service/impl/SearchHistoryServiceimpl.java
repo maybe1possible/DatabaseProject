@@ -32,7 +32,10 @@ public class SearchHistoryServiceimpl implements SearchHistoryService {
     }
 
     @Override
-    public void deleteSearchHistory(Integer searchHistoryId) {
+    public void deleteSearchHistory(Integer searchHistoryId, Integer userId) {
+        if (searchHistoryId == 0) {
+            searchHistoryMapper.deleteAllSearchHistory(userId);
+        }
         searchHistoryMapper.deleteSearchHistory(searchHistoryId);
     }
 }

@@ -44,6 +44,6 @@ public interface MaterialMapper {
     @Select("select state from materials where material_id=#{articleId}")
     Integer getStatusById(Integer articleId);
 
-    @Update("update materials set state=i where material_id=#{articleId}")
+    @Update("update materials set state=#{i} where material_id=#{articleId}")
     void changeCompetence(Integer articleId, int i);
 }

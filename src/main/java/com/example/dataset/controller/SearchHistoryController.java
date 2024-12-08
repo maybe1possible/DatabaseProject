@@ -35,7 +35,7 @@ public class SearchHistoryController {
     @PostMapping("/deleteSearchHistory")
     @ApiOperation("删除搜索记录")
     public ResultUtils deleteSearchHistory(@RequestBody DeleteSearchHistoryDTO deleteSearchHistoryDTO) {
-        searchHistoryService.deleteSearchHistory(deleteSearchHistoryDTO.getSearchHistoryId());
+        searchHistoryService.deleteSearchHistory(deleteSearchHistoryDTO.getSearchHistoryId(), deleteSearchHistoryDTO.getUserId());
         return ResultUtils.success();
     }
 

@@ -102,13 +102,13 @@ public class MaterialController {
 
     @GetMapping("/getArticles")
     @ApiOperation("获取资料列表")
-    public ResultUtils<PageResult> getArticles(Integer userId, String type, String keyword, String navName, Integer page, Integer pageSize, String sort) {
+    public ResultUtils<PageResult> getArticles(Integer userId, String type, String keyword, String navName, Integer pageNumber, Integer pageSize, String sort) {
         MaterialPageDTO materialPageDTO = MaterialPageDTO.builder()
                 .userId(userId)
                 .type(type)
                 .keyword(keyword)
                 .navName(navName)
-                .page(page)
+                .page(pageNumber)
                 .pageSize(pageSize)
                 .sort(sort)
                 .build();
@@ -136,6 +136,9 @@ public class MaterialController {
     @ApiOperation("获取资料细节")
     public ResultUtils<MaterialInfoVO> getArticleDetail(@RequestParam("user_id") Integer user_id, @RequestParam("material_id") Integer material_id) {
         MaterialInfoDTO materialInfoDTO = materialService.getMaterialById(material_id);
+        if (materialInfoDTO.getStatus() == 5) {
+            return ResultUtils.error("文章已被作者删除");
+        }
         Integer downloaded = downloadService.getIfDownloaded(user_id, material_id);
         Integer stared = starService.getIfStared(user_id, material_id);
         MaterialInfoVO materialInfoVO = MaterialInfoVO.builder()

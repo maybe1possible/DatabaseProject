@@ -15,6 +15,7 @@ import com.example.dataset.mapper.MaterialTagMapper;
 import com.example.dataset.mapper.SearchHistoryMapper;
 import com.example.dataset.mapper.TagMapper;
 import com.example.dataset.service.MaterialService;
+import com.example.dataset.service.SearchHistoryService;
 import com.example.dataset.utils.PageResult;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -40,10 +42,11 @@ public class MaterialServiceimpl implements MaterialService {
     private MaterialTagMapper materialTagMapper;
 
     @Autowired
-    private SearchHistoryMapper searchHistoryMapper;
+    private SearchHistoryService searchHistoryService;
 
     @Autowired
     private AliOssProperties aliOssProperties;
+
 
 
     @Override
@@ -77,7 +80,7 @@ public class MaterialServiceimpl implements MaterialService {
 
         Date expiration = new Date(System.currentTimeMillis() + 3600 * 1000);
 
-        return ossClient.generatePresignedUrl(aliOssProperties.getBucketName(), filename, expiration).toString();
+        return ossClient.generatePresignedUrl(aliOssProperties.getBucketName(), filename, expiration).toString().replace("http://","https://");
     }
 
     @Override
@@ -86,7 +89,7 @@ public class MaterialServiceimpl implements MaterialService {
         PageHelper.startPage(materialPageDTO.getPage(), materialPageDTO.getPageSize());
         Page<MaterialListVO> page = materialMapper.pageSearchByKeyword(materialPageDTO);
         log.info(String.valueOf(page.getTotal()));
-        searchHistoryMapper.addSearchHistory(materialPageDTO.getUserId(), materialPageDTO.getKeyword(), LocalDateTime.now());
+        searchHistoryService.addSearchHistory(materialPageDTO.getUserId(), materialPageDTO.getKeyword());
         return new PageResult(page.getTotal(), page.getResult());
     }
 
@@ -137,7 +140,7 @@ public class MaterialServiceimpl implements MaterialService {
     @Transactional
     public void deleteArticle(DeleteArticleDTO deleteArticleDTO) {
         Integer userId = materialMapper.getUserId(deleteArticleDTO.getArticleId());
-        if (userId != deleteArticleDTO.getUserId()) {
+        if (!Objects.equals(userId, deleteArticleDTO.getUserId())) {
             throw new RuntimeException("无法删除其它用户资料");
         }
         materialMapper.deleteArticle(deleteArticleDTO.getArticleId());

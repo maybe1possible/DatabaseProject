@@ -12,10 +12,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyCommentInfoVO {
-    private Integer material_id;
+    private Integer commentId;
+    private Integer materialId;
     private String title;
-    private String file_type;
+    private String fileType;
     private String content;
-    private LocalDateTime comment_time;
+    private LocalDateTime commentTime;
     private Integer state;
 }
