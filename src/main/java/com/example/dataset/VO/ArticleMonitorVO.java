@@ -12,6 +12,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleMonitorVO {
-    private LocalDate articleDate;
-    private Integer articleCount;
+    private LocalDate Date;
+    private Integer Count;
 }

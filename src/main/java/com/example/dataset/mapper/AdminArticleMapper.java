@@ -2,6 +2,7 @@ package com.example.dataset.mapper;
 
 import com.example.dataset.VO.ArticleWithoutAuditListVO;
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -13,4 +14,7 @@ public interface AdminArticleMapper {
     Page<ArticleWithoutAuditListVO> getArticleWithoutAudit();
 
     void setArticleStatus(Integer id, Integer pass);
+
+    @Delete("delete from materials where material_id=#{articleId}")
+    void deleteArticle(Integer articleId);
 }

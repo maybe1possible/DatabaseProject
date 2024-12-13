@@ -6,45 +6,72 @@
         <choose>
             <when test="type == 'day'">
                 SELECT
-                date_trunc('day', download_time) AS downloadDate,
-                COUNT(*) AS downloadCount
+                date_series::date AS Date,
+                COALESCE(downloads.Count, 0) AS Count
+                FROM
+                generate_series(
+                CURRENT_TIMESTAMP - INTERVAL '10 days',
+                CURRENT_TIMESTAMP,
+                INTERVAL '1 day'
+                ) AS date_series
+                LEFT JOIN (
+                SELECT
+                date_trunc('day', download_time) AS Date,
+                COUNT(*) AS Count
                 FROM
                 downloads
-                WHERE
-                download_time >= CURRENT_TIMESTAMP - INTERVAL '10 days'
                 GROUP BY
-                downloadDate
+                Date
+                ) downloads ON date_series::date = downloads.Date
                 ORDER BY
-                downloadDate;
+                Date;
             </when>
             <when test="type == 'week'">
                 SELECT
-                date_trunc('week', download_time) AS downloadDate,
-                COUNT(*) AS downloadCount
+                date_series::date AS Date,
+                COALESCE(downloads.Count, 0) AS Count
+                FROM
+                generate_series(
+                CURRENT_TIMESTAMP - INTERVAL '10 weeks',
+                CURRENT_TIMESTAMP,
+                INTERVAL '1 week'
+                ) AS date_series
+                LEFT JOIN (
+                SELECT
+                date_trunc('week', download_time) AS Date,
+                COUNT(*) AS Count
                 FROM
                 downloads
-                WHERE
-                download_time >= CURRENT_TIMESTAMP - INTERVAL '10 weeks'
                 GROUP BY
-                downloadDate
+                Date
+                ) downloads ON date_trunc('week', date_series::date) = downloads.Date
                 ORDER BY
-                downloadDate;
+                Date;
             </when>
             <when test="type == 'month'">
                 SELECT
-                date_trunc('month', download_time) AS downloadDate,
-                COUNT(*) AS downloadCount
+                date_series::date AS Date,
+                COALESCE(downloads.Count, 0) AS Count
+                FROM
+                generate_series(
+                CURRENT_TIMESTAMP - INTERVAL '10 months',
+                CURRENT_TIMESTAMP,
+                INTERVAL '1 month'
+                ) AS date_series
+                LEFT JOIN (
+                SELECT
+                date_trunc('month', download_time) AS Date,
+                COUNT(*) AS Count
                 FROM
                 downloads
-                WHERE
-                download_time >= CURRENT_TIMESTAMP - INTERVAL '10 months'
                 GROUP BY
-                downloadDate
+                Date
+                ) downloads ON date_trunc('month', date_series::date) = downloads.Date
                 ORDER BY
-                downloadDate;
+                Date;
             </when>
             <otherwise>
-                SELECT NULL AS downloadDate, NULL AS downloadCount;
+                SELECT NULL AS Date, NULL AS Count;
             </otherwise>
         </choose>
     </select>
@@ -53,45 +80,72 @@
         <choose>
             <when test="type == 'day'">
                 SELECT
-                date_trunc('day', publish_time) AS articleDate,
-                COUNT(*) AS articleCount
+                date_series::date AS Date,
+                COALESCE(materials.Count, 0) AS Count
+                FROM
+                generate_series(
+                CURRENT_TIMESTAMP - INTERVAL '10 days',
+                CURRENT_TIMESTAMP,
+                INTERVAL '1 day'
+                ) AS date_series
+                LEFT JOIN (
+                SELECT
+                date_trunc('day', publish_time) AS Date,
+                COUNT(*) AS Count
                 FROM
                 materials
-                WHERE
-                publish_time >= CURRENT_TIMESTAMP - INTERVAL '10 days'
                 GROUP BY
-                articleDate
+                Date
+                ) materials ON date_series::date = materials.Date
                 ORDER BY
-                articleDate;
+                Date;
             </when>
             <when test="type == 'week'">
                 SELECT
-                date_trunc('week', publish_time) AS articleDate,
-                COUNT(*) AS articleCount
+                date_series::date AS Date,
+                COALESCE(materials.Count, 0) AS Count
+                FROM
+                generate_series(
+                CURRENT_TIMESTAMP - INTERVAL '10 weeks',
+                CURRENT_TIMESTAMP,
+                INTERVAL '1 week'
+                ) AS date_series
+                LEFT JOIN (
+                SELECT
+                date_trunc('week', publish_time) AS Date,
+                COUNT(*) AS Count
                 FROM
                 materials
-                WHERE
-                publish_time >= CURRENT_TIMESTAMP - INTERVAL '10 weeks'
                 GROUP BY
-                articleDate
+                Date
+                ) materials ON date_trunc('week', date_series::date) = materials.Date
                 ORDER BY
-                articleDate;
+                Date;
             </when>
             <when test="type == 'month'">
                 SELECT
-                date_trunc('month', publish_time) AS articleDate,
-                COUNT(*) AS articleCount
+                date_series::date AS Date,
+                COALESCE(materials.Count, 0) AS Count
+                FROM
+                generate_series(
+                CURRENT_TIMESTAMP - INTERVAL '10 months',
+                CURRENT_TIMESTAMP,
+                INTERVAL '1 month'
+                ) AS date_series
+                LEFT JOIN (
+                SELECT
+                date_trunc('month', publish_time) AS Date,
+                COUNT(*) AS Count
                 FROM
                 materials
-                WHERE
-                publish_time >= CURRENT_TIMESTAMP - INTERVAL '10 months'
                 GROUP BY
-                articleDate
+                Date
+                ) materials ON date_trunc('month', date_series::date) = materials.Date
                 ORDER BY
-                articleDate;
+                Date;
             </when>
             <otherwise>
-                SELECT NULL AS articleDate, NULL AS articleCount;
+                SELECT NULL AS Date, NULL AS Count;
             </otherwise>
         </choose>
     </select>
@@ -100,45 +154,72 @@
         <choose>
             <when test="type == 'day'">
                 SELECT
-                date_trunc('day', gen_time) AS userDate,
-                COUNT(*) AS userCount
+                date_series::date AS Date,
+                COALESCE(users.Count, 0) AS Count
+                FROM
+                generate_series(
+                CURRENT_TIMESTAMP - INTERVAL '10 days',
+                CURRENT_TIMESTAMP,
+                INTERVAL '1 day'
+                ) AS date_series
+                LEFT JOIN (
+                SELECT
+                date_trunc('day', gen_time) AS Date,
+                COUNT(*) AS Count
                 FROM
                 users
-                WHERE
-                gen_time >= CURRENT_TIMESTAMP - INTERVAL '10 days'
                 GROUP BY
-                userDate
+                Date
+                ) users ON date_series::date = users.Date
                 ORDER BY
-                userDate;
+                Date;
             </when>
             <when test="type == 'week'">
                 SELECT
-                date_trunc('week', gen_time) AS userDate,
-                COUNT(*) AS userCount
+                date_series::date AS Date,
+                COALESCE(users.Count, 0) AS Count
+                FROM
+                generate_series(
+                CURRENT_TIMESTAMP - INTERVAL '10 weeks',
+                CURRENT_TIMESTAMP,
+                INTERVAL '1 week'
+                ) AS date_series
+                LEFT JOIN (
+                SELECT
+                date_trunc('week', gen_time) AS Date,
+                COUNT(*) AS Count
                 FROM
                 users
-                WHERE
-                gen_time >= CURRENT_TIMESTAMP - INTERVAL '10 weeks'
                 GROUP BY
-                userDate
+                Date
+                ) users ON date_trunc('week', date_series::date) = users.Date
                 ORDER BY
-                userDate;
+                Date;
             </when>
             <when test="type == 'month'">
                 SELECT
-                date_trunc('month', gen_time) AS userDate,
-                COUNT(*) AS userCount
+                date_series::date AS Date,
+                COALESCE(users.Count, 0) AS Count
+                FROM
+                generate_series(
+                CURRENT_TIMESTAMP - INTERVAL '10 months',
+                CURRENT_TIMESTAMP,
+                INTERVAL '1 month'
+                ) AS date_series
+                LEFT JOIN (
+                SELECT
+                date_trunc('month', gen_time) AS Date,
+                COUNT(*) AS Count
                 FROM
                 users
-                WHERE
-                gen_time >= CURRENT_TIMESTAMP - INTERVAL '10 months'
                 GROUP BY
-                userDate
+                Date
+                ) users ON date_trunc('month', date_series::date) = users.Date
                 ORDER BY
-                userDate;
+                Date;
             </when>
             <otherwise>
-                SELECT NULL AS userDate, NULL AS userCount;
+                SELECT NULL AS Date, NULL AS Count;
             </otherwise>
         </choose>
     </select>

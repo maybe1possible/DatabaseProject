@@ -46,4 +46,6 @@ public interface MaterialMapper {
 
     @Update("update materials set state=#{i} where material_id=#{articleId}")
     void changeCompetence(Integer articleId, int i);
+
+    Page<MaterialListVO> pageSearchAll(MaterialPageDTO materialPageDTO);
 }

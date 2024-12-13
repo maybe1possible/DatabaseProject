@@ -1,5 +1,7 @@
 package com.example.dataset.controller.admin;
 
+import com.example.dataset.DTO.AdminDeleteArticleDTO;
+import com.example.dataset.DTO.DeleteArticleDTO;
 import com.example.dataset.DTO.SetArticleStatusDTO;
 import com.example.dataset.entity.Material;
 import com.example.dataset.service.AdminArticleService;
@@ -42,6 +44,12 @@ public class AdminArticleController {
     @PostMapping("/setArticleStatus")
     public ResultUtils setArticleStatus(@RequestBody SetArticleStatusDTO setArticleStatusDTO) {
         adminArticleService.setArticleStatus(setArticleStatusDTO);
+        return ResultUtils.success();
+    }
+
+    @PostMapping("/delete")
+    public ResultUtils deleteArticle(@RequestBody AdminDeleteArticleDTO adminDeleteArticleDTO) {
+        adminArticleService.deleteArticle(adminDeleteArticleDTO);
         return ResultUtils.success();
     }
 

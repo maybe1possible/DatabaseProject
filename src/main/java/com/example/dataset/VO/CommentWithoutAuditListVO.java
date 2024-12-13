@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CommentWithoutAuditListVO {
     private Integer id;
+    private Integer materialId;
     private String title;
     private String content;
     private LocalDateTime commentTime;

@@ -2,6 +2,7 @@ package com.example.dataset.service.impl;
 
 import com.example.dataset.DTO.SetUserStatusDTO;
 import com.example.dataset.VO.AdminUserVO;
+import com.example.dataset.exception.UserNotExistException;
 import com.example.dataset.mapper.AdminUserMapper;
 import com.example.dataset.service.AdminUserService;
 import com.example.dataset.utils.PageResult;
@@ -28,7 +29,7 @@ public class AdminUserServiceimpl implements AdminUserService {
         if (adminUserVO != null) {
             return adminUserVO;
         }
-        throw new  RuntimeException("用户不存在");
+        throw new UserNotExistException("用户不存在");
     }
 
     @Override

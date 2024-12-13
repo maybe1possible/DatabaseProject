@@ -11,8 +11,8 @@ public interface AdminUserMapper {
     @Select("select user_id as id, nickname, status from users order by gen_time")
     Page<AdminUserVO> getAllUser();
 
-    @Select("select user_id as id, nickname, status from users where user_id=#{id}")
-    AdminUserVO getUserById(Integer id);
+    @Select("select user_id as id, nickname, status from users where user_id=#{Id}")
+    AdminUserVO getUserById(Integer Id);
 
     @Update("update users set status=#{status} where user_id=#{id}")
     void setStatus(Integer id, Integer status);

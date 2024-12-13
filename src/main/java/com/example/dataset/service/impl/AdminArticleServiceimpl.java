@@ -1,5 +1,6 @@
 package com.example.dataset.service.impl;
 
+import com.example.dataset.DTO.AdminDeleteArticleDTO;
 import com.example.dataset.DTO.SetArticleStatusDTO;
 import com.example.dataset.VO.ArticleWithoutAuditListVO;
 import com.example.dataset.mapper.AdminArticleMapper;
@@ -39,5 +40,10 @@ public class AdminArticleServiceimpl  implements AdminArticleService {
     @Override
     public void setArticleStatus(SetArticleStatusDTO setArticleStatusDTO) {
         adminArticleMapper.setArticleStatus(setArticleStatusDTO.getId(), setArticleStatusDTO.getPass());
+    }
+
+    @Override
+    public void deleteArticle(AdminDeleteArticleDTO adminDeleteArticleDTO) {
+        adminArticleMapper.deleteArticle(adminDeleteArticleDTO.getArticleId());
     }
 }

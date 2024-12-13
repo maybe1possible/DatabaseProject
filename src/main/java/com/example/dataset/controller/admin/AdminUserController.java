@@ -2,6 +2,7 @@ package com.example.dataset.controller.admin;
 
 import com.example.dataset.DTO.SetUserStatusDTO;
 import com.example.dataset.VO.AdminUserVO;
+import com.example.dataset.exception.UserNotExistException;
 import com.example.dataset.service.AdminUserService;
 import com.example.dataset.utils.PageResult;
 import com.example.dataset.utils.ResultUtils;
@@ -28,7 +29,13 @@ public class AdminUserController {
     @GetMapping("/getUserById")
     @ApiOperation("根据ID获取用户")
     public ResultUtils<AdminUserVO> getUserById(Integer id){
-        return ResultUtils.success(adminUserService.getUserById(id));
+        AdminUserVO adminUserVO = new AdminUserVO();
+        try {
+            adminUserVO = adminUserService.getUserById(id);
+        } catch (UserNotExistException e) {
+            return ResultUtils.error(e.getMessage());
+        }
+        return ResultUtils.success(adminUserVO);
     }
 
     @PostMapping("/setUserStatus")

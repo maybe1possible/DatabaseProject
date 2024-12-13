@@ -99,8 +99,10 @@ public class MaterialServiceimpl implements MaterialService {
         Page<MaterialListVO> page = null;
         if (materialPageDTO.getNavName().equals("recommend")) {
             page = materialMapper.pageSearchByRecommend(materialPageDTO);
-        } else {
+        } else if (materialPageDTO.getNavName().equals("official")) {
             page = materialMapper.pageSearchByOfficial(materialPageDTO);
+        } else {
+            page = materialMapper.pageSearchAll(materialPageDTO);
         }
         return new PageResult(page.getTotal(), page.getResult());
     }
@@ -148,7 +150,7 @@ public class MaterialServiceimpl implements MaterialService {
 
     @Override
     public void changeCompetence(ChangeCompetenceDTO changeCompetenceDTO) {
-        if (changeCompetenceDTO.getCompetence().equals("仅阅读")) {
+        if (changeCompetenceDTO.getCompetence().equals("仅查看")) {
             Integer status = materialMapper.getStatusById(changeCompetenceDTO.getArticleId());
             if (status < 2) materialMapper.changeCompetence(changeCompetenceDTO.getArticleId(), 0);
             if (status > 2) materialMapper.changeCompetence(changeCompetenceDTO.getArticleId(), 3);

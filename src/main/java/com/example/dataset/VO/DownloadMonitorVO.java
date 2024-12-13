@@ -12,6 +12,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DownloadMonitorVO {
-    private LocalDate downloadDate;
-    private Integer downloadCount;
+    private LocalDate Date;
+    private Integer Count;
 }
